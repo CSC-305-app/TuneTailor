@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211779688275",
+    "project_id": "tune-tailor-z08x0g",
+    "storage_bucket": "tune-tailor-z08x0g.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211779688275:android:e38651dcc20b0be49d73a6",
+        "android_client_info": {
+          "package_name": "com.mycompany.tunetailor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxecUGx5H43eH9SBRHuOfZENSsj4dmIXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

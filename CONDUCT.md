@@ -116,6 +116,7 @@ community.
 **Digital Signature**:
 Ryan Gilbert
 William Tsafack
+![Trevor Moy](/src/trevor-signature.png)
 
 ## Attribution
 

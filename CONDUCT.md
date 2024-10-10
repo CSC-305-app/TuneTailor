@@ -115,7 +115,7 @@ community.
 
 **Digital Signature**:
 Ryan Gilbert
-![William Tsafack](signature.png)
+![William Tsafack](C:\Users\William\signature.png)
 ![Trevor Moy](/src/trevor-signature.png)
 
 ## Attribution

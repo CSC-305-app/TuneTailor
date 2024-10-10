@@ -115,6 +115,7 @@ community.
 
 **Digital Signature**:
 Ryan Gilbert
+William Tsafack
 
 ## Attribution
 

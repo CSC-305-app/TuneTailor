@@ -117,6 +117,7 @@ community.
 Ryan Gilbert
 ![William Tsafack](/src/signature.png)
 ![Trevor Moy](/src/trevor-signature.png)
+![Eli Dehner](/src/eli-signature.png)
 
 ## Attribution
 

@@ -114,7 +114,7 @@ individual, or aggression toward or disparagement of classes of individuals.
 community.
 
 **Digital Signature**:
-Ryan Gilbert
+![Ryan Gilbert](/src/ryan-signature.png)
 ![William Tsafack](/src/signature.png)
 ![Trevor Moy](/src/trevor-signature.png)
 ![Eli Dehner](/src/eli-signature.png)

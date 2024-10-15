@@ -8,7 +8,7 @@
 
 
 ## Observation 3
-
+A large majority of our userbase uses their music app Daily
 
 ## Observation 4
 

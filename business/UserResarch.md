@@ -17,6 +17,8 @@
 
 ## Observation 4
 In terms of payment options user's prefered a one- time payment.
+    - 20 out of the 47 users answered "Yes, I’d prefer a one-time payment"
+    - This seems like the best payment option for the app
 
 ## Observation 5
 

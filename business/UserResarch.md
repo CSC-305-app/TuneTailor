@@ -21,6 +21,6 @@ In terms of payment options user's prefered a one- time payment.
     - This seems like the best payment option for the app
 
 ## Observation 5
-
-
-## Observation 6
+- The app's user interface is a high priority for users.
+    - 22 people found that this type of app should have a clean and simple interface, 13 found it extremely important, and 10 people found it somewhat important.
+    - A clean and simple interface is something that people find important in the app.

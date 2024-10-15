@@ -13,7 +13,7 @@
 
 ## Observation 3
 - People listen to music on streaming services on a daily basis the most
-    - 30 people responded daily, 10 responded several times a day, 7 resonded weekly, 0 responded rarely
+    - 30 people responded daily, 10 responded several times a day, 7 resonded weekly, 0 responded rarely.
 
 ## Observation 4
 In terms of payment options user's prefered a one- time payment.

@@ -11,7 +11,7 @@
 
 
 ## Observation 4
-
+In terms of payment options user's prefered a one- time payment.
 
 ## Observation 5
 

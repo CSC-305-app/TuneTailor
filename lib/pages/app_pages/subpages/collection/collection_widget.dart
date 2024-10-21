@@ -1,25 +1,29 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'home_page_model.dart';
-export 'home_page_model.dart';
+import 'collection_model.dart';
+export 'collection_model.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class CollectionWidget extends StatefulWidget {
+  /// A page to store the playlists created by the user, either in the app or
+  /// from apps that have been authenticated.
+  const CollectionWidget({super.key});
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<CollectionWidget> createState() => _CollectionWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
+class _CollectionWidgetState extends State<CollectionWidget> {
+  late CollectionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
+    _model = createModel(context, () => CollectionModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

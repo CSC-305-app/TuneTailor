@@ -12,7 +12,20 @@
           "package_name": "com.mycompany.tunetailor"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "211779688275-lrh5s02q7h507k971dhk4j1t0rd09v0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.tunetailor",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "211779688275-jv61lh7s712v712560163lf3jionhk6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDxecUGx5H43eH9SBRHuOfZENSsj4dmIXs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211779688275-jv61lh7s712v712560163lf3jionhk6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "211779688275-bg5ufcgk743gv5q5h8gioo0oiuvhljh9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.tunetailor"
+              }
+            }
+          ]
         }
       }
     }

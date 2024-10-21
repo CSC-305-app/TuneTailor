@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'collection_widget.dart' show CollectionWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class CollectionModel extends FlutterFlowModel<CollectionWidget> {
   @override
   void initState(BuildContext context) {}
 

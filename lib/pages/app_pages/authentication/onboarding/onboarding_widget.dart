@@ -65,554 +65,563 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/TuneTailor_logo_transparent.png',
-                          width: 80.0,
-                          height: 80.0,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('ONBOARDING_PAGE_Stack_e234lme4_ON_TAP');
-                      logFirebaseEvent('Stack_upload_media_to_firebase');
-                      final selectedMedia =
-                          await selectMediaWithSourceBottomSheet(
-                        context: context,
-                        maxWidth: 136.00,
-                        allowPhoto: true,
-                      );
-                      if (selectedMedia != null &&
-                          selectedMedia.every((m) =>
-                              validateFileFormat(m.storagePath, context))) {
-                        safeSetState(() => _model.isDataUploading = true);
-                        var selectedUploadedFiles = <FFUploadedFile>[];
-
-                        var downloadUrls = <String>[];
-                        try {
-                          selectedUploadedFiles = selectedMedia
-                              .map((m) => FFUploadedFile(
-                                    name: m.storagePath.split('/').last,
-                                    bytes: m.bytes,
-                                    height: m.dimensions?.height,
-                                    width: m.dimensions?.width,
-                                    blurHash: m.blurHash,
-                                  ))
-                              .toList();
-
-                          downloadUrls = (await Future.wait(
-                            selectedMedia.map(
-                              (m) async =>
-                                  await uploadData(m.storagePath, m.bytes),
-                            ),
-                          ))
-                              .where((u) => u != null)
-                              .map((u) => u!)
-                              .toList();
-                        } finally {
-                          _model.isDataUploading = false;
-                        }
-                        if (selectedUploadedFiles.length ==
-                                selectedMedia.length &&
-                            downloadUrls.length == selectedMedia.length) {
-                          safeSetState(() {
-                            _model.uploadedLocalFile =
-                                selectedUploadedFiles.first;
-                            _model.uploadedFileUrl = downloadUrls.first;
-                          });
-                        } else {
-                          safeSetState(() {});
-                          return;
-                        }
-                      }
-
-                      logFirebaseEvent('Stack_backend_call');
-
-                      await currentUserReference!.update(createUsersRecordData(
-                        photoUrl: _model.uploadedFileUrl,
-                      ));
-                    },
-                    child: Stack(
-                      alignment: const AlignmentDirectional(-1.0, 1.0),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 0.0, 8.0),
-                          child: Container(
-                            width: 90.0,
-                            height: 90.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: Image.network(
-                                  _model.uploadedFileUrl,
-                                ).image,
-                              ),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/TuneTailor_logo_transparent.png',
+                            width: 80.0,
+                            height: 80.0,
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                        FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).primaryText,
-                          borderRadius: 100.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          icon: Icon(
-                            Icons.add_sharp,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 24.0,
-                          ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
-                          },
                         ),
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          width: 200.0,
-                          child: TextFormField(
-                            controller: _model.lNameTextController,
-                            focusNode: _model.lNameFocusNode,
-                            autofocus: false,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              hintText: 'lastname...',
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'ONBOARDING_PAGE_Stack_e234lme4_ON_TAP');
+                        logFirebaseEvent('Stack_upload_media_to_firebase');
+                        final selectedMedia =
+                            await selectMediaWithSourceBottomSheet(
+                          context: context,
+                          maxWidth: 136.00,
+                          allowPhoto: true,
+                        );
+                        if (selectedMedia != null &&
+                            selectedMedia.every((m) =>
+                                validateFileFormat(m.storagePath, context))) {
+                          safeSetState(() => _model.isDataUploading = true);
+                          var selectedUploadedFiles = <FFUploadedFile>[];
+
+                          var downloadUrls = <String>[];
+                          try {
+                            selectedUploadedFiles = selectedMedia
+                                .map((m) => FFUploadedFile(
+                                      name: m.storagePath.split('/').last,
+                                      bytes: m.bytes,
+                                      height: m.dimensions?.height,
+                                      width: m.dimensions?.width,
+                                      blurHash: m.blurHash,
+                                    ))
+                                .toList();
+
+                            downloadUrls = (await Future.wait(
+                              selectedMedia.map(
+                                (m) async =>
+                                    await uploadData(m.storagePath, m.bytes),
+                              ),
+                            ))
+                                .where((u) => u != null)
+                                .map((u) => u!)
+                                .toList();
+                          } finally {
+                            _model.isDataUploading = false;
+                          }
+                          if (selectedUploadedFiles.length ==
+                                  selectedMedia.length &&
+                              downloadUrls.length == selectedMedia.length) {
+                            safeSetState(() {
+                              _model.uploadedLocalFile =
+                                  selectedUploadedFiles.first;
+                              _model.uploadedFileUrl = downloadUrls.first;
+                            });
+                          } else {
+                            safeSetState(() {});
+                            return;
+                          }
+                        }
+
+                        logFirebaseEvent('Stack_backend_call');
+
+                        await currentUserReference!
+                            .update(createUsersRecordData(
+                          photoUrl: _model.uploadedFileUrl,
+                        ));
+                      },
+                      child: Stack(
+                        alignment: const AlignmentDirectional(-1.0, 1.0),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 0.0, 8.0),
+                            child: Container(
+                              width: 90.0,
+                              height: 90.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: Image.network(
+                                    _model.uploadedFileUrl,
+                                  ).image,
+                                ),
+                                shape: BoxShape.circle,
+                                border: Border.all(
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
-                                  width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(24.0),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 26.0, 24.0, 26.0),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            cursorColor:
+                          ),
+                          FlutterFlowIconButton(
+                            borderColor:
                                 FlutterFlowTheme.of(context).primaryText,
-                            validator: _model.lNameTextControllerValidator
-                                .asValidator(context),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          width: 200.0,
-                          child: TextFormField(
-                            controller: _model.fNameTextController,
-                            focusNode: _model.fNameFocusNode,
-                            autofocus: false,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              hintText: 'firstname...',
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 26.0, 24.0, 26.0),
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            cursorColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            validator: _model.fNameTextControllerValidator
-                                .asValidator(context),
-                          ),
-                        ),
-                      ),
-                    ].divide(const SizedBox(width: 12.0)),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextFormField(
-                      controller: _model.userNameTextController,
-                      focusNode: _model.userNameFocusNode,
-                      autofocus: false,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        hintText: 'username...',
-                        hintStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        filled: true,
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                            24.0, 26.0, 24.0, 26.0),
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            letterSpacing: 0.0,
-                          ),
-                      cursorColor: FlutterFlowTheme.of(context).primaryText,
-                      validator: _model.userNameTextControllerValidator
-                          .asValidator(context),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('ONBOARDING_PAGE_setBirthday_ON_TAP');
-                      logFirebaseEvent('setBirthday_date_time_picker');
-                      final datePickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: getCurrentTimestamp,
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2050),
-                        builder: (context, child) {
-                          return wrapInMaterialDatePickerTheme(
-                            context,
-                            child!,
-                            headerBackgroundColor:
-                                FlutterFlowTheme.of(context).primary,
-                            headerForegroundColor:
-                                FlutterFlowTheme.of(context).info,
-                            headerTextStyle: FlutterFlowTheme.of(context)
-                                .headlineLarge
-                                .override(
-                                  fontFamily: 'Inter Tight',
-                                  fontSize: 32.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                            pickerBackgroundColor: FlutterFlowTheme.of(context)
+                            borderRadius: 100.0,
+                            borderWidth: 1.0,
+                            buttonSize: 40.0,
+                            fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            pickerForegroundColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            selectedDateTimeBackgroundColor:
-                                FlutterFlowTheme.of(context).primary,
-                            selectedDateTimeForegroundColor:
-                                FlutterFlowTheme.of(context).info,
-                            actionButtonForegroundColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            iconSize: 24.0,
-                          );
-                        },
-                      );
-
-                      if (datePickedDate != null) {
-                        safeSetState(() {
-                          _model.datePicked = DateTime(
-                            datePickedDate.year,
-                            datePickedDate.month,
-                            datePickedDate.day,
-                          );
-                        });
-                      }
-                    },
-                    text: 'Set Birthday',
-                    icon: const Icon(
-                      Icons.calendar_today,
-                      size: 15.0,
+                            icon: Icon(
+                              Icons.add_sharp,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
+                            ),
+                            onPressed: () {
+                              print('IconButton pressed ...');
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    options: FFButtonOptions(
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 200.0,
+                            child: TextFormField(
+                              controller: _model.lNameTextController,
+                              focusNode: _model.lNameFocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                hintText: 'lastname...',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 26.0, 24.0, 26.0),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              validator: _model.lNameTextControllerValidator
+                                  .asValidator(context),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            width: 200.0,
+                            child: TextFormField(
+                              controller: _model.fNameTextController,
+                              focusNode: _model.fNameFocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                hintText: 'firstname...',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 26.0, 24.0, 26.0),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              validator: _model.fNameTextControllerValidator
+                                  .asValidator(context),
+                            ),
+                          ),
+                        ),
+                      ].divide(const SizedBox(width: 12.0)),
+                    ),
+                    SizedBox(
                       width: double.infinity,
-                      height: 64.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        width: 1.0,
+                      child: TextFormField(
+                        controller: _model.userNameTextController,
+                        focusNode: _model.userNameFocusNode,
+                        autofocus: false,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          labelStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          hintText: 'username...',
+                          hintStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0x00000000),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 26.0, 24.0, 26.0),
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                        cursorColor: FlutterFlowTheme.of(context).primaryText,
+                        validator: _model.userNameTextControllerValidator
+                            .asValidator(context),
                       ),
-                      borderRadius: BorderRadius.circular(24.0),
                     ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('signUpSpotify pressed ...');
-                    },
-                    text: 'Sign in with Spotify',
-                    options: FFButtonOptions(
-                      width: 200.0,
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0x7857636C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('signUpAppleMusic pressed ...');
-                    },
-                    text: 'Sign in with Apple Music',
-                    options: FFButtonOptions(
-                      width: 200.0,
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0x7857636C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('signUpSoundcloud pressed ...');
-                    },
-                    text: 'Sign in with Sound Cloud',
-                    options: FFButtonOptions(
-                      width: 200.0,
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0x7857636C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('signUpGoogle pressed ...');
-                    },
-                    text: 'Sign in with Google',
-                    options: FFButtonOptions(
-                      width: 200.0,
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0x7857636C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
-                      logFirebaseEvent('finish_backend_call');
+                    FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent('ONBOARDING_PAGE_setBirthday_ON_TAP');
+                        logFirebaseEvent('setBirthday_date_time_picker');
+                        final datePickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: getCurrentTimestamp,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2050),
+                          builder: (context, child) {
+                            return wrapInMaterialDatePickerTheme(
+                              context,
+                              child!,
+                              headerBackgroundColor:
+                                  FlutterFlowTheme.of(context).primary,
+                              headerForegroundColor:
+                                  FlutterFlowTheme.of(context).info,
+                              headerTextStyle: FlutterFlowTheme.of(context)
+                                  .headlineLarge
+                                  .override(
+                                    fontFamily: 'Inter Tight',
+                                    fontSize: 32.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                              pickerBackgroundColor:
+                                  FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                              pickerForegroundColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              selectedDateTimeBackgroundColor:
+                                  FlutterFlowTheme.of(context).primary,
+                              selectedDateTimeForegroundColor:
+                                  FlutterFlowTheme.of(context).info,
+                              actionButtonForegroundColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              iconSize: 24.0,
+                            );
+                          },
+                        );
 
-                      await currentUserReference!.update(createUsersRecordData(
-                        displayName: _model.fNameTextController.text,
-                        bio: _model.lNameTextController.text,
-                        userName: _model.userNameTextController.text,
-                      ));
-                      logFirebaseEvent('finish_navigate_to');
-
-                      context.pushNamed('social');
-                    },
-                    text: 'Finish',
-                    options: FFButtonOptions(
-                      width: 200.0,
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0x7857636C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        if (datePickedDate != null) {
+                          safeSetState(() {
+                            _model.datePicked = DateTime(
+                              datePickedDate.year,
+                              datePickedDate.month,
+                              datePickedDate.day,
+                            );
+                          });
+                        }
+                      },
+                      text: 'Set Birthday',
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        size: 15.0,
                       ),
-                      borderRadius: BorderRadius.circular(24.0),
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 64.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleLarge.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
                     ),
-                  ),
-                ],
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('signUpSpotify pressed ...');
+                      },
+                      text: 'Sign in with Spotify',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x7857636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('signUpAppleMusic pressed ...');
+                      },
+                      text: 'Sign in with Apple Music',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x7857636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('signUpSoundcloud pressed ...');
+                      },
+                      text: 'Sign in with Sound Cloud',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x7857636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('signUpGoogle pressed ...');
+                      },
+                      text: 'Sign in with Google',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x7857636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
+                        logFirebaseEvent('finish_backend_call');
+
+                        await currentUserReference!
+                            .update(createUsersRecordData(
+                          displayName: _model.fNameTextController.text,
+                          bio: _model.lNameTextController.text,
+                          userName: _model.userNameTextController.text,
+                        ));
+                        logFirebaseEvent('finish_navigate_to');
+
+                        context.pushNamed('social');
+                      },
+                      text: 'Finish',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x7857636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

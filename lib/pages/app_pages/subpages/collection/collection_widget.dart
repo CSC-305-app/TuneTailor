@@ -41,7 +41,7 @@ class _CollectionWidgetState extends State<CollectionWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).turquoiseBackground,
+        backgroundColor: const Color(0xFFE5E5E5),
         body: SafeArea(
           top: true,
           child: Container(

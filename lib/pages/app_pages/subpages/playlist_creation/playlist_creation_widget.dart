@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'playlist_creation_model.dart';
 export 'playlist_creation_model.dart';
 
@@ -118,7 +117,7 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                                       size: 24.0,
                                     ),
                                     onPressed: () {
-                                      print('IconButton pressed ...');
+                                      print('AddPlaylistArtButton pressed ...');
                                     },
                                   ),
                                 ],
@@ -206,171 +205,95 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                           ),
                         ),
                       ),
+                      const Divider(
+                        thickness: 2.0,
+                        color: Color(0x8C397267),
+                      ),
                       SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 10.0),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  extentRatio: 0.25,
-                                  children: [
-                                    SlidableAction(
-                                      label: 'Delete',
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).error,
-                                      icon: Icons.delete_outline_rounded,
-                                      onPressed: (_) {
-                                        print(
-                                            'SlidableActionWidget pressed ...');
-                                      },
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'PLAYLIST_CREATION_Container_z5xlhv4p_ON_');
+                                    logFirebaseEvent('Container_navigate_to');
+
+                                    context.pushNamed('profile');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFBFBFBF),
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(0.0),
+                                        bottomRight: Radius.circular(0.0),
+                                        topLeft: Radius.circular(0.0),
+                                        topRight: Radius.circular(0.0),
+                                      ),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        width: 1.0,
+                                      ),
                                     ),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: ListTile(
-                                    title: Text(
-                                      'Title',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .override(
-                                            fontFamily: 'Inter Tight',
-                                            letterSpacing: 0.0,
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 5.0, 5.0, 5.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.add,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 40.0,
                                           ),
-                                    ),
-                                    subtitle: Text(
-                                      'Subtitle',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    75.0, 0.0, 0.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'PLAYLIST_CREATION_AddNewSongText_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'AddNewSongText_navigate_to');
+
+                                                context.pushNamed('Collection');
+                                              },
+                                              child: Text(
+                                                'Add New Song',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
                                           ),
-                                    ),
-                                    tileColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    dense: false,
-                                    contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 10.0),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  extentRatio: 0.25,
-                                  children: [
-                                    SlidableAction(
-                                      label: 'Delete',
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).error,
-                                      icon: Icons.delete_outline_rounded,
-                                      onPressed: (_) {
-                                        print(
-                                            'SlidableActionWidget pressed ...');
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: ListTile(
-                                    title: Text(
-                                      'Title',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .override(
-                                            fontFamily: 'Inter Tight',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    subtitle: Text(
-                                      'Subtitle',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    tileColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    dense: false,
-                                    contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 10.0),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  extentRatio: 0.25,
-                                  children: [
-                                    SlidableAction(
-                                      label: 'Delete',
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).error,
-                                      icon: Icons.delete_outline_rounded,
-                                      onPressed: (_) {
-                                        print(
-                                            'SlidableActionWidget pressed ...');
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: ListTile(
-                                    title: Text(
-                                      'Title',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .override(
-                                            fontFamily: 'Inter Tight',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    subtitle: Text(
-                                      'Subtitle',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    tileColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    dense: false,
-                                    contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              ],
                             ),
                           ],
                         ),

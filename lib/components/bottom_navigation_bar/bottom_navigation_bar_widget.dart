@@ -284,7 +284,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                               animationsMap['dividerOnPageLoadAnimation2']!),
                       ],
                     ),
-                    if (widget.showCentralButton == true) const Spacer(),
+                    const Spacer(),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -374,59 +374,57 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
               ),
             ),
           ),
-          if (widget.showCentralButton == true)
-            Align(
-              alignment: const AlignmentDirectional(0.0, 1.0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
-                child: ClipOval(
-                  child: Container(
-                    width: 70.0,
-                    height: 70.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).alternate,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 4.0,
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          offset: const Offset(
-                            0.0,
-                            2.0,
-                          ),
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 3.0),
-                      child: FlutterFlowIconButton(
-                        borderRadius: 20.0,
-                        borderWidth: 0.0,
-                        buttonSize: 10.0,
-                        icon: Icon(
-                          Icons.add,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 32.0,
+          Align(
+            alignment: const AlignmentDirectional(0.0, 1.0),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+              child: ClipOval(
+                child: Container(
+                  width: 70.0,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).alternate,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4.0,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        offset: const Offset(
+                          0.0,
+                          2.0,
                         ),
-                        onPressed: () async {
-                          logFirebaseEvent(
-                              'BOTTOM_NAVIGATION_BAR_CentralIconButton_');
-                          logFirebaseEvent('CentralIconButton_navigate_to');
-
-                          context.pushNamed('PlaylistCreation');
-                        },
-                      ),
+                      )
+                    ],
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      width: 1.0,
                     ),
                   ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation']!),
-              ),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 3.0),
+                    child: FlutterFlowIconButton(
+                      borderRadius: 20.0,
+                      borderWidth: 0.0,
+                      buttonSize: 10.0,
+                      icon: Icon(
+                        Icons.add,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 32.0,
+                      ),
+                      onPressed: () async {
+                        logFirebaseEvent(
+                            'BOTTOM_NAVIGATION_BAR_CentralIconButton_');
+                        logFirebaseEvent('CentralIconButton_navigate_to');
+
+                        context.pushNamed('PlaylistCreation');
+                      },
+                    ),
+                  ),
+                ),
+              ).animateOnPageLoad(
+                  animationsMap['containerOnPageLoadAnimation']!),
             ),
+          ),
         ],
       ),
     );

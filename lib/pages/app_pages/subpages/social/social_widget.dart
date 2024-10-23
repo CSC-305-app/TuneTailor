@@ -1,5 +1,4 @@
 import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'social_model.dart';
@@ -41,7 +40,7 @@ class _SocialWidgetState extends State<SocialWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).turquoiseBackground,
+        backgroundColor: const Color(0xFFE5E5E5),
         body: SafeArea(
           top: true,
           child: Container(

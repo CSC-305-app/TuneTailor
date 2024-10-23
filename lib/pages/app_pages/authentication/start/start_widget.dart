@@ -26,6 +26,7 @@ class _StartWidgetState extends State<StartWidget>
     super.initState();
     _model = createModel(context, () => StartModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Start'});
     _model.tabBarController = TabController(
       vsync: this,
       length: 2,
@@ -695,10 +696,13 @@ class _StartWidgetState extends State<StartWidget>
                       if (_model.tabBarCurrentIndex == 0)
                         FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent('START_PAGE_signUpButton_ON_TAP');
+                            logFirebaseEvent('signUpButton_validate_form');
                             if (_model.formKey1.currentState == null ||
                                 !_model.formKey1.currentState!.validate()) {
                               return;
                             }
+                            logFirebaseEvent('signUpButton_auth');
                             GoRouter.of(context).prepareAuthEvent();
                             if (_model.signUpPassTextController.text !=
                                 _model.signUpConfirmPassTextController.text) {
@@ -732,6 +736,8 @@ class _StartWidgetState extends State<StartWidget>
                                   createdTime: getCurrentTimestamp,
                                 ));
 
+                            logFirebaseEvent('signUpButton_navigate_to');
+
                             context.goNamedAuth('Onboarding', context.mounted);
                           },
                           text: 'Sign Up',
@@ -759,10 +765,13 @@ class _StartWidgetState extends State<StartWidget>
                       if (_model.tabBarCurrentIndex == 1)
                         FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent('START_PAGE_loginButton_ON_TAP');
+                            logFirebaseEvent('loginButton_validate_form');
                             if (_model.formKey2.currentState == null ||
                                 !_model.formKey2.currentState!.validate()) {
                               return;
                             }
+                            logFirebaseEvent('loginButton_auth');
                             GoRouter.of(context).prepareAuthEvent();
 
                             final user = await authManager.signInWithEmail(
@@ -773,6 +782,8 @@ class _StartWidgetState extends State<StartWidget>
                             if (user == null) {
                               return;
                             }
+
+                            logFirebaseEvent('loginButton_navigate_to');
 
                             context.pushNamedAuth(
                                 'PlaylistCreation', context.mounted);

@@ -2,29 +2,27 @@ import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'social_model.dart';
-export 'social_model.dart';
+import 'profile_model.dart';
+export 'profile_model.dart';
 
-class SocialWidget extends StatefulWidget {
-  /// This page is where users can interact with their friends, sharing their
-  /// latest playlists or favorite songs/artists
-  const SocialWidget({super.key});
+class ProfileWidget extends StatefulWidget {
+  const ProfileWidget({super.key});
 
   @override
-  State<SocialWidget> createState() => _SocialWidgetState();
+  State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
-class _SocialWidgetState extends State<SocialWidget> {
-  late SocialModel _model;
+class _ProfileWidgetState extends State<ProfileWidget> {
+  late ProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SocialModel());
+    _model = createModel(context, () => ProfileModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'social'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'profile'});
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 

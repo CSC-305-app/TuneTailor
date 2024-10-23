@@ -167,17 +167,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                 width: 360.0,
                 height: 70.0,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF473A53),
-                      Color(0xFF673AB7),
-                      Color(0xFFD9D9D9)
-                    ],
-                    stops: [0.25, 0.5, 1.0],
-                    begin: AlignmentDirectional(0.0, 1.0),
-                    end: AlignmentDirectional(0, -1.0),
-                  ),
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    width: 1.0,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -214,8 +209,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
                               ),
-                              onPressed: () {
-                                print('HomeIconButton pressed ...');
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'BOTTOM_NAVIGATION_BAR_HomeIconButton_ON_');
+                                logFirebaseEvent('HomeIconButton_navigate_to');
+
+                                context.pushNamed('social');
                               },
                             ),
                           ),
@@ -259,12 +258,16 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                                   FlutterFlowTheme.of(context).secondary,
                               icon: Icon(
                                 key: const ValueKey('NoteIconButton'),
-                                Icons.note_alt_outlined,
+                                Icons.library_music_rounded,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
                               ),
-                              onPressed: () {
-                                print('NoteIconButton pressed ...');
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'BOTTOM_NAVIGATION_BAR_NoteIconButton_ON_');
+                                logFirebaseEvent('NoteIconButton_navigate_to');
+
+                                context.pushNamed('Collection');
                               },
                             ),
                           ),
@@ -301,8 +304,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,
                             ),
-                            onPressed: () {
-                              print('ProfileIconButton pressed ...');
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'BOTTOM_NAVIGATION_BAR_ProfileIconButton_');
+                              logFirebaseEvent('ProfileIconButton_navigate_to');
+
+                              context.pushNamed('profile');
                             },
                           ),
                         ),
@@ -337,8 +344,13 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,
                             ),
-                            onPressed: () {
-                              print('SettingsIconButton pressed ...');
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'BOTTOM_NAVIGATION_BAR_SettingsIconButton');
+                              logFirebaseEvent(
+                                  'SettingsIconButton_navigate_to');
+
+                              context.pushNamed('settings');
                             },
                           ),
                         ),
@@ -371,37 +383,42 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                   child: Container(
                     width: 70.0,
                     height: 70.0,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF9E86BD),
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).alternate,
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 4.0,
-                          color: Color(0x33000000),
-                          offset: Offset(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          offset: const Offset(
                             0.0,
                             2.0,
                           ),
                         )
                       ],
                       shape: BoxShape.circle,
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        width: 1.0,
+                      ),
                     ),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 3.0),
                       child: FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
                         borderRadius: 20.0,
                         borderWidth: 0.0,
                         buttonSize: 10.0,
-                        fillColor: const Color(0xFF9E86BD),
-                        hoverColor: FlutterFlowTheme.of(context).secondary,
                         icon: Icon(
                           Icons.add,
                           color: FlutterFlowTheme.of(context).primaryText,
                           size: 32.0,
                         ),
-                        onPressed: () {
-                          print('CentralIconButton pressed ...');
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'BOTTOM_NAVIGATION_BAR_CentralIconButton_');
+                          logFirebaseEvent('CentralIconButton_navigate_to');
+
+                          context.pushNamed('PlaylistCreation');
                         },
                       ),
                     ),

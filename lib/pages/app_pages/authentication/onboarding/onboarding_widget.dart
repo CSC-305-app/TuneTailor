@@ -28,6 +28,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Onboarding'});
     _model.lNameTextController ??= TextEditingController();
     _model.lNameFocusNode ??= FocusNode();
 
@@ -88,6 +89,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent('ONBOARDING_PAGE_Stack_e234lme4_ON_TAP');
+                      logFirebaseEvent('Stack_upload_media_to_firebase');
                       final selectedMedia =
                           await selectMediaWithSourceBottomSheet(
                         context: context,
@@ -137,6 +140,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           return;
                         }
                       }
+
+                      logFirebaseEvent('Stack_backend_call');
 
                       await currentUserReference!.update(createUsersRecordData(
                         photoUrl: _model.uploadedFileUrl,
@@ -398,6 +403,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent('ONBOARDING_PAGE_setBirthday_ON_TAP');
+                      logFirebaseEvent('setBirthday_date_time_picker');
                       final datePickedDate = await showDatePicker(
                         context: context,
                         initialDate: getCurrentTimestamp,
@@ -572,13 +579,17 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
+                      logFirebaseEvent('finish_backend_call');
+
                       await currentUserReference!.update(createUsersRecordData(
                         displayName: _model.fNameTextController.text,
                         bio: _model.lNameTextController.text,
                         userName: _model.userNameTextController.text,
                       ));
+                      logFirebaseEvent('finish_navigate_to');
 
-                      context.pushNamed('PlaylistCreation');
+                      context.pushNamed('social');
                     },
                     text: 'Finish',
                     options: FFButtonOptions(

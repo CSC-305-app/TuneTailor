@@ -26,6 +26,9 @@ How to collect: Firebase Analytics automatically logs the number of users who do
 Account Creation Rate
 
 How to collect: Track the number of users who successfully create an account by logging a custom account_creation event with Firebase Analytics.
+Sign in with Google Rate
+
+How to collect: Track the number of users who successfully create an account by loggin a custom Google analytics event through firebase. 
 Active User Rate
 
 How to collect: Use Firebase Analytics to track user activity. Log events like active_user and analyze the frequency of logins over 7, 14, and 28 days.

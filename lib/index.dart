@@ -12,3 +12,6 @@ export '/pages/app_pages/subpages/profile/profile_widget.dart'
     show ProfileWidget;
 export '/pages/app_pages/subpages/settings/settings_widget.dart'
     show SettingsWidget;
+export '/pages/app_pages/subpages/survey/survey_widget.dart' show SurveyWidget;
+export '/pages/app_pages/subpages/playlist_modify/playlist_modify_widget.dart'
+    show PlaylistModifyWidget;

@@ -485,106 +485,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       ),
                     ),
                     FFButtonWidget(
-                      onPressed: () {
-                        print('signUpSpotify pressed ...');
-                      },
-                      text: 'Sign in with Spotify',
-                      options: FFButtonOptions(
-                        width: 200.0,
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: const Color(0x7857636C),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('signUpAppleMusic pressed ...');
-                      },
-                      text: 'Sign in with Apple Music',
-                      options: FFButtonOptions(
-                        width: 200.0,
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: const Color(0x7857636C),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('signUpSoundcloud pressed ...');
-                      },
-                      text: 'Sign in with Sound Cloud',
-                      options: FFButtonOptions(
-                        width: 200.0,
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: const Color(0x7857636C),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('signUpGoogle pressed ...');
-                      },
-                      text: 'Sign in with Google',
-                      options: FFButtonOptions(
-                        width: 200.0,
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: const Color(0x7857636C),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                    ),
-                    FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
                         logFirebaseEvent('finish_backend_call');
@@ -595,6 +495,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           bio: _model.lNameTextController.text,
                           userName: _model.userNameTextController.text,
                         ));
+                        logFirebaseEvent('finish_google_analytics_event');
+                        logFirebaseEvent('finish_onboarding');
                         logFirebaseEvent('finish_navigate_to');
 
                         context.pushNamed('social');

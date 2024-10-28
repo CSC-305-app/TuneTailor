@@ -72,13 +72,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const OnboardingWidget() : const StartWidget(),
+          appStateNotifier.loggedIn ? const PlaylistCreationWidget() : const StartWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const OnboardingWidget() : const StartWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const PlaylistCreationWidget()
+              : const StartWidget(),
         ),
         FFRoute(
           name: 'Start',
@@ -114,6 +115,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'settings',
           path: '/settings',
           builder: (context, params) => const SettingsWidget(),
+        ),
+        FFRoute(
+          name: 'survey',
+          path: '/survey',
+          builder: (context, params) => const SurveyWidget(),
+        ),
+        FFRoute(
+          name: 'PlaylistModify',
+          path: '/playlistModify',
+          builder: (context, params) => const PlaylistModifyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

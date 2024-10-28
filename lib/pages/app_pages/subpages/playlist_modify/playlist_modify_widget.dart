@@ -6,29 +6,29 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'playlist_creation_model.dart';
-export 'playlist_creation_model.dart';
+import 'playlist_modify_model.dart';
+export 'playlist_modify_model.dart';
 
-class PlaylistCreationWidget extends StatefulWidget {
+class PlaylistModifyWidget extends StatefulWidget {
   /// Page
-  const PlaylistCreationWidget({super.key});
+  const PlaylistModifyWidget({super.key});
 
   @override
-  State<PlaylistCreationWidget> createState() => _PlaylistCreationWidgetState();
+  State<PlaylistModifyWidget> createState() => _PlaylistModifyWidgetState();
 }
 
-class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
-  late PlaylistCreationModel _model;
+class _PlaylistModifyWidgetState extends State<PlaylistModifyWidget> {
+  late PlaylistModifyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PlaylistCreationModel());
+    _model = createModel(context, () => PlaylistModifyModel());
 
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'PlaylistCreation'});
+        parameters: {'screen_name': 'PlaylistModify'});
     _model.playlistTitleTextController ??= TextEditingController();
     _model.playlistTitleFocusNode ??= FocusNode();
 
@@ -155,7 +155,7 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 logFirebaseEvent(
-                                    'PLAYLIST_CREATION_Icon_i2gutczf_ON_TAP');
+                                    'PLAYLIST_MODIFY_Icon_gsi329dw_ON_TAP');
                                 logFirebaseEvent('Icon_navigate_to');
 
                                 context.pushNamed('Collection');
@@ -248,32 +248,39 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'PLAYLIST_CREATION_Icon_0izpi5q6_ON_TAP');
-                              logFirebaseEvent('Icon_backend_call');
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'PLAYLIST_MODIFY_Icon_ekwshy8e_ON_TAP');
+                                  logFirebaseEvent('Icon_backend_call');
 
-                              await PlaylistsRecord.collection
-                                  .doc()
-                                  .set(createPlaylistsRecordData(
-                                    title:
-                                        _model.playlistTitleTextController.text,
-                                    user: currentUserReference,
-                                    created: getCurrentTimestamp,
-                                  ));
-                              logFirebaseEvent('Icon_navigate_to');
+                                  await PlaylistsRecord.collection
+                                      .doc()
+                                      .set(createPlaylistsRecordData(
+                                        title: _model
+                                            .playlistTitleTextController.text,
+                                        user: currentUserReference,
+                                        created: getCurrentTimestamp,
+                                      ));
+                                  logFirebaseEvent('Icon_navigate_to');
 
-                              context.pushNamed('Collection');
-                            },
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
+                                  context.pushNamed('Collection');
+                                },
+                                child: Icon(
+                                  Icons.exit_to_app_outlined,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 36.0,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -299,7 +306,7 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
-                                          'PLAYLIST_CREATION_Container_z5xlhv4p_ON_');
+                                          'PLAYLIST_MODIFY_Container_x68qxrdw_ON_TA');
                                       logFirebaseEvent('Container_navigate_to');
 
                                       context.pushNamed('profile');
@@ -341,7 +348,7 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   logFirebaseEvent(
-                                                      'PLAYLIST_CREATION_AddNewSongText_ON_TAP');
+                                                      'PLAYLIST_MODIFY_AddNewSongText_ON_TAP');
                                                   logFirebaseEvent(
                                                       'AddNewSongText_navigate_to');
 

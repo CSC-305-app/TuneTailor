@@ -119,7 +119,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
-  crypto: any
 dependency_overrides:
   http: 1.2.2
   uuid: ^4.0.0

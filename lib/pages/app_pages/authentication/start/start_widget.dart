@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/signin_options_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -459,7 +460,7 @@ class _StartWidgetState extends State<StartWidget>
                                             .asValidator(context),
                                       ),
                                     ),
-                                  ].divide(const SizedBox(height: 12.0)),
+                                  ].divide(const SizedBox(height: 18.0)),
                                 ),
                               ),
                               Form(
@@ -682,13 +683,51 @@ class _StartWidgetState extends State<StartWidget>
                                             .asValidator(context),
                                       ),
                                     ),
-                                  ].divide(const SizedBox(height: 12.0)),
+                                  ].divide(const SizedBox(height: 18.0)),
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'START_OTHER_SIGN_IN_OPTIONS_BTN_ON_TAP');
+                      logFirebaseEvent('Button_bottom_sheet');
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context).unfocus(),
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: const SigninOptionsWidget(),
+                            ),
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
+                    },
+                    text: 'Other Sign in Options',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleMedium.override(
+                                fontFamily: 'Inter Tight',
+                                color: const Color(0xFF476ED5),
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(24.0),
                     ),
                   ),
                   Stack(

@@ -69,6 +69,48 @@ Using Firebase Analytics, we will track:
 2. **Analyze Metrics**: Compare NPS scores, retention, adoption, and feedback quality.
 3. **Iterate**: Implement the winning variation into the app and adjust the NPS survey system accordingly.
 
-This approach aims to refine the feedback system, leading to better user satisfaction insights.
 
-You can view the file [here](https://github.com/CSC-305-app/TuneTailor/blob/wtsafack-patch-3/ABTEST.md).
+
+# A/B Test: Sign-in options 
+
+
+## Test Name 
+**More sign-in options on the start page vs. click-to-popup for additional sign-in options**
+## User Story Number
+US1 Account Creation
+
+## Metrics 
+Track the percentage of users who select each sign-in option, as well as the overall sign-in conversion rate from the start page.
+
+## Hypothesis
+
+### Problem Statement
+Currently, the sign-in page presents users with limited options at the start, requiring an extra click to reveal all available sign-in methods. We want to see if directly displaying more sign-in options on the start page will reduce friction and increase account creation. The primary bottleneck is the extra click required to see additional sign-in methods, which could discourage users who don’t see their preferred method immediately.
+
+### Hypothesis
+Displaying more sign-in options on the start page will improve the user experience by minimizing the number of steps needed to sign in. This reduced friction will lead to an increase in the use of alternative sign-in methods and a higher sign-in conversion rate, as users are more likely to choose an option they’re comfortable with if it’s readily visible.
+
+## Experiment
+
+### Audience 
+The experiment will be shown to 50% of users, with the remaining 50% seeing the current design (control group). This split will allow for a statistically significant comparison while limiting potential disruption to the user base.
+
+### Tracking in Firebase Analytics:
+Set up an event to track which sign-in option each user selects, including options like Google, Spotify, Apple Music, or email.
+Track conversions to determine the overall percentage of users who complete the sign-in process for each variation.
+Use the HEART framework to track Engagement (e.g., time spent on the sign-in page) and Adoption (e.g., successful account creation per variation).
+
+### Expected Outcome
+Users exposed to the “more sign-in options on the start page” variation are expected to show higher engagement and account creation rates.
+
+## Variations
+### Control
+Users see a “More sign in options” button, which, when clicked, opens a popup displaying all available sign-in options.
+
+### Variation 
+All available sign-in options (e.g., Google, Spotify, Apple Music) are displayed directly on the start page. Users can immediately select their preferred method without additional clicks.
+
+### Design Mockups:
+**Control Group**: Start page with one primary “More sign in options” button leading to a popup with multiple options.
+
+**Variation Group**: Start page with multiple sign-in options displayed directly (e.g., Google, Spotify, Apple Music).

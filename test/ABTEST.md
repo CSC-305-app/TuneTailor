@@ -69,6 +69,8 @@ Using Firebase Analytics, we will track:
 2. **Analyze Metrics**: Compare NPS scores, retention, adoption, and feedback quality.
 3. **Iterate**: Implement the winning variation into the app and adjust the NPS survey system accordingly.
 
+
+
 # A/B Test: Sign-in options 
 
 
@@ -112,4 +114,3 @@ All available sign-in options (e.g., Google, Spotify, Apple Music) are displayed
 **Control Group**: Start page with one primary “More sign in options” button leading to a popup with multiple options.
 
 **Variation Group**: Start page with multiple sign-in options displayed directly (e.g., Google, Spotify, Apple Music).
-

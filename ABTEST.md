@@ -113,3 +113,35 @@ All available sign-in options (e.g., Google, Spotify, Apple Music) are displayed
 
 **Variation Group**: Start page with multiple sign-in options displayed directly (e.g., Google, Spotify, Apple Music).
 
+## Test Name
+**Playlist Curation – Personalized Recommendations vs. Genre-Based Suggestions**
+
+## User Story Number: 
+US4 (Playlist Creation and Recommendation)
+
+## Metrics
+Engagement: Total number of playlists generated per user
+Adoption: Percentage of new users who generate a playlist within the first session
+Retention: Percentage of returning users who use the playlist creation feature
+Satisfaction: User feedback scores on playlist quality (e.g., using in-app surveys)
+Hypothesis: Users will find personalized playlist suggestions based on their cross-platform listening history more engaging and relevant than genre-based playlists. This will increase initial engagement and user satisfaction with the app, leading to higher retention rates.
+
+## Problem Statement
+Currently, new users struggle to feel immediately connected to the playlists generated, as they’re not based on individual preferences. Many new users don’t explore the app deeply if the initial playlists don’t resonate, which leads to high drop-off rates. We want to make the onboarding experience more engaging by immediately suggesting playlists that feel personalized. By testing personalized recommendations versus genre-based suggestions, we aim to identify which approach creates a stronger initial user connection and drives retention.
+
+## Experiment
+Using Firebase Remote Config, set up an A/B test to serve different playlist creation algorithms to new users. Group A (50%) will receive personalized playlist recommendations based on their cross-platform music data, while Group B (50%) will receive playlists sorted by popular genres. Track the following HEART metrics for each group:
+
+## Engagement:
+Monitor the number of playlists generated per session and per user
+
+## Retention: 
+Track returning user rates over 7 and 30 days
+
+## Satisfaction:
+Implement an optional 5-star rating for each playlist created and follow-up questions in Firebase In-App Messaging to gather qualitative feedback
+Firebase Analytics will be used to tag and track engagement with these playlist recommendations and capture usage trends between the two groups. We’ll also set up Firebase Predictions to see which group shows a higher likelihood of churn.
+
+**Variations:
+Variation A: Personalized recommendations based on user preferences from multiple streaming services.
+Variation B: Genre-based playlists (e.g., Top 40s, Rock, Chill, etc.), using popular music genres instead of personal data.

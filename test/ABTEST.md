@@ -114,3 +114,72 @@ All available sign-in options (e.g., Google, Spotify, Apple Music) are displayed
 **Control Group**: Start page with one primary “More sign in options” button leading to a popup with multiple options.
 
 **Variation Group**: Start page with multiple sign-in options displayed directly (e.g., Google, Spotify, Apple Music).
+
+# A/B Test: Music API Integration
+
+## Test Name
+**Music API Integration: Display Embedded Player vs. Redirect to Music Platform**
+
+## User Story Number
+This A/B test corresponds to **User Story US5** (Music API Integration).
+
+## Metrics
+The metrics measured in this A/B test include:
+- **Engagement**: Time spent interacting with the embedded player or external platform.
+- **Adoption**: Percentage of users who engage with the music feature.
+- **Retention**: Impact of the music feature on user return rates.
+- **Conversion Rate**: Percentage of users who subscribe or engage deeply (e.g., playlist creation, liking songs).
+- **User Satisfaction**: User feedback on the experience of accessing music within the app.
+
+## Hypothesis
+We hypothesize that:
+- Providing an embedded music player directly in the app will increase user engagement by reducing friction in accessing music.
+- Users may find it more convenient to stay within the app instead of being redirected to an external platform, leading to higher retention and satisfaction.
+- Conversely, some users may prefer accessing the full experience on the original music platform (Spotify, Apple Music, etc.).
+
+## Problem Statement
+### Problem
+Currently, the app integrates with music platforms, but users are redirected to external platforms to listen to music. This extra step may cause drop-offs, as users leave the app and may not return. Additionally, it limits interaction within the app and disrupts the user journey.
+
+### Impact
+Improving the integration by embedding a music player could:
+- Increase engagement by keeping users in the app.
+- Boost retention if users find value in seamless access to music.
+- Reduce friction in the user experience, potentially leading to higher satisfaction and more frequent use of the music feature.
+
+### Hypothesis
+Embedding the music player directly in the app will improve user engagement and retention by providing a smoother, more integrated experience for users, leading to fewer drop-offs and a more cohesive user journey.
+
+## Experiment Design
+We will set up an A/B test using Firebase's Remote Config with two variations:
+1. **Variation A (Redirect to Platform)**: Users are redirected to Spotify, Apple Music, or SoundCloud when they select a song.
+2. **Variation B (Embedded Player)**: An embedded music player appears within the app, allowing users to listen without leaving the app.
+
+### Audiences
+- 50% of users will experience Variation A (redirect).
+- 50% will experience Variation B (embedded player).
+
+### Tracking Setup
+Using Firebase Analytics, we will track:
+- **Engagement Time**: Time spent in the embedded player or on the external platform.
+- **Adoption and Conversion Rates**: Number of users who start and complete music sessions.
+- **Retention**: Return rate of users who interacted with the music feature.
+- **User Feedback**: Collect feedback on the embedded player experience versus external redirection.
+
+## Variations
+#### Variation A - Redirect to Platform
+- When a user selects a song, they are redirected to Spotify, Apple Music, or SoundCloud.
+- Users leave the app to interact with the full music platform.
+
+#### Variation B - Embedded Player
+- An embedded player appears within the app, allowing users to listen directly without redirection.
+- Basic music controls (play, pause, skip) are included within the embedded player.
+
+### Design Mockups:
+- **Control Group (Redirect)**: Show a design where selecting a song opens the external music platform.
+- **Variation Group (Embedded Player)**: Show a design with an embedded player that appears within the app for a seamless listening experience.
+
+## Next Steps
+1. **Implement Firebase Remote Config**: Set up configurations to toggle between the redirect and embedded player variations.
+2. **Analyze Metrics**: Compare engagement time, retention, and conversion between the two groups.
+3. **Implement Changes Based on Results**: If the embedded player shows higher engagement and retention, consider adopting it as the standard music integration method.

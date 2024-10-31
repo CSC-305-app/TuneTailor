@@ -1,0 +1,29 @@
+# System files
+.DS_Store
+
+# Flutter and Dart build directories
+/build/
+/.dart_tool/
+/.config/
+/.idea/
+/.build/
+
+# iOS and Android
+/ios/Pods/
+/android/.gradle/
+/android/app/build/
+
+# Generated files
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Firebase configuration (optional, if it contains environment-specific data)
+/firebase/
+
+# Analysis options (optional, if you don’t want them shared)
+/analysis_options.yaml
+
+# Web output (if generated)
+web/

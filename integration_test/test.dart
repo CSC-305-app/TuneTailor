@@ -41,6 +41,7 @@ void main() async {
     await tester.tap(find.text('Login'));
     await tester.enterText(find.text('Email...'), 'trevmoy@gmai.com');
     await tester.enterText(find.text('Password...'), 'Password123!');
+    await tester.tap(find.text('Log in'));
     await tester.pumpAndSettle(Duration(milliseconds: 3000));
     expect(find.text('Create Playlist'), findsNothing);
   });

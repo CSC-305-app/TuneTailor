@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
-import '/components/playlist_widget.dart';
+import '/components/playlist/playlist_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -53,111 +53,177 @@ class _CollectionWidgetState extends State<CollectionWidget> {
             decoration: const BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 400.0,
-                  height: 600.0,
-                  decoration: const BoxDecoration(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Playlist\'s',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
-                      ),
-                      StreamBuilder<List<PlaylistsRecord>>(
-                        stream: queryPlaylistsRecord(
-                          queryBuilder: (playlistsRecord) =>
-                              playlistsRecord.where(
-                            'user',
-                            isEqualTo: currentUserReference,
-                          ),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<PlaylistsRecord> listViewPlaylistsRecordList =
-                              snapshot.data!;
-
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewPlaylistsRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewPlaylistsRecord =
-                                  listViewPlaylistsRecordList[listViewIndex];
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 10.0, 0.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        PlaylistWidget(
-                                          key: Key(
-                                              'Key0t0_${listViewIndex}_of_${listViewPlaylistsRecordList.length}'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(),
-                      child: wrapWithModel(
-                        model: _model.bottomNavigationBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BottomNavigationBarWidget(
-                          hidden: false,
-                          showCentralButton: false,
-                          onTapCentralButton: () async {},
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                      child: Container(
+                        width: 400.0,
+                        height: 744.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(22.0),
+                          border: Border.all(
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 10.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Your Playlists',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: StreamBuilder<List<PlaylistsRecord>>(
+                                      stream: queryPlaylistsRecord(
+                                        queryBuilder: (playlistsRecord) =>
+                                            playlistsRecord.where(
+                                          'user',
+                                          isEqualTo: currentUserReference,
+                                        ),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<PlaylistsRecord>
+                                            gridViewPlaylistsRecordList =
+                                            snapshot.data!;
+
+                                        return GridView.builder(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            0,
+                                            5.0,
+                                            0,
+                                            0,
+                                          ),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 4.0,
+                                            mainAxisSpacing: 15.0,
+                                            childAspectRatio: 1.0,
+                                          ),
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: gridViewPlaylistsRecordList
+                                              .length,
+                                          itemBuilder:
+                                              (context, gridViewIndex) {
+                                            final gridViewPlaylistsRecord =
+                                                gridViewPlaylistsRecordList[
+                                                    gridViewIndex];
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'COLLECTION_Container_0ss8215o_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Playlist_navigate_to');
+
+                                                context.pushNamed(
+                                                    'PlaylistModify');
+
+                                                logFirebaseEvent(
+                                                    'Playlist_update_app_state');
+                                                FFAppState().selectedPlaylist =
+                                                    gridViewPlaylistsRecord
+                                                        .reference;
+                                                FFAppState()
+                                                        .SelectedPlaylistName =
+                                                    gridViewPlaylistsRecord
+                                                        .title;
+                                                safeSetState(() {});
+                                              },
+                                              child: PlaylistWidget(
+                                                key: Key(
+                                                    'Key0ss_${gridViewIndex}_of_${gridViewPlaylistsRecordList.length}'),
+                                                playlistName:
+                                                    gridViewPlaylistsRecord
+                                                        .title,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 100.0,
+                          decoration: const BoxDecoration(),
+                          child: wrapWithModel(
+                            model: _model.bottomNavigationBarModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: BottomNavigationBarWidget(
+                              hidden: false,
+                              showCentralButton: false,
+                              onTapCentralButton: () async {},
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

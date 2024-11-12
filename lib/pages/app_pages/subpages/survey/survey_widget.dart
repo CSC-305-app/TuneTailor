@@ -69,6 +69,39 @@ class _SurveyWidgetState extends State<SurveyWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent('SURVEY_PAGE_BACK_BTN_ON_TAP');
+                        logFirebaseEvent('Button_navigate_to');
+
+                        context.pushNamed('settings');
+                      },
+                      text: 'Back',
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 15.0,
+                      ),
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: const Color(0x0057636C),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                  ],
+                ),
                 Text(
                   'How likely are you to recommend this app to a friend?\n(1 = Not likely, 10 = Very likely)',
                   textAlign: TextAlign.center,
@@ -86,23 +119,17 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
                     min: 1.0,
                     max: 10.0,
-                    value: _model.sliderValue1 ??=
-                        FFAppState().sliderValue.toDouble(),
-                    label: _model.sliderValue1?.toStringAsFixed(0),
-                    onChanged: (newValue) async {
+                    value: _model.slider1Value ??= 1.0,
+                    label: _model.slider1Value?.toStringAsFixed(0),
+                    onChanged: (newValue) {
                       newValue = double.parse(newValue.toStringAsFixed(0));
-                      safeSetState(() => _model.sliderValue1 = newValue);
-                      logFirebaseEvent(
-                          'SURVEY_Slider_mk21mi9z_ON_FORM_WIDGET_SE');
-                      logFirebaseEvent('Slider_update_app_state');
-                      FFAppState().sliderValue = FFAppState().sliderValue;
-                      safeSetState(() {});
+                      safeSetState(() => _model.slider1Value = newValue);
                     },
                   ),
                 ),
                 Text(
                   valueOrDefault<String>(
-                    _model.sliderValue1?.toString(),
+                    _model.slider1Value?.toString(),
                     '1',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -127,23 +154,17 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
                     min: 1.0,
                     max: 10.0,
-                    value: _model.sliderValue2 ??=
-                        FFAppState().sliderValue2.toDouble(),
-                    label: _model.sliderValue2?.toStringAsFixed(0),
-                    onChanged: (newValue) async {
+                    value: _model.slider2Value ??= 1.0,
+                    label: _model.slider2Value?.toStringAsFixed(0),
+                    onChanged: (newValue) {
                       newValue = double.parse(newValue.toStringAsFixed(0));
-                      safeSetState(() => _model.sliderValue2 = newValue);
-                      logFirebaseEvent(
-                          'SURVEY_Slider_oe34m231_ON_FORM_WIDGET_SE');
-                      logFirebaseEvent('Slider_update_app_state');
-                      FFAppState().sliderValue2 = FFAppState().sliderValue2;
-                      safeSetState(() {});
+                      safeSetState(() => _model.slider2Value = newValue);
                     },
                   ),
                 ),
                 Text(
                   valueOrDefault<String>(
-                    _model.sliderValue2?.toString(),
+                    _model.slider2Value?.toString(),
                     '1',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -168,23 +189,17 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
                     min: 1.0,
                     max: 10.0,
-                    value: _model.sliderValue3 ??=
-                        FFAppState().sliderValue3.toDouble(),
-                    label: _model.sliderValue3?.toStringAsFixed(0),
-                    onChanged: (newValue) async {
+                    value: _model.slider3Value ??= 1.0,
+                    label: _model.slider3Value?.toStringAsFixed(0),
+                    onChanged: (newValue) {
                       newValue = double.parse(newValue.toStringAsFixed(0));
-                      safeSetState(() => _model.sliderValue3 = newValue);
-                      logFirebaseEvent(
-                          'SURVEY_Slider_bxvzj4d8_ON_FORM_WIDGET_SE');
-                      logFirebaseEvent('Slider_update_app_state');
-                      FFAppState().sliderValue3 = FFAppState().sliderValue3;
-                      safeSetState(() {});
+                      safeSetState(() => _model.slider3Value = newValue);
                     },
                   ),
                 ),
                 Text(
                   valueOrDefault<String>(
-                    _model.sliderValue3?.toString(),
+                    _model.slider3Value?.toString(),
                     '1',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -209,15 +224,14 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
                     min: 1.0,
                     max: 10.0,
-                    value: _model.sliderValue4 ??=
-                        FFAppState().sliderValue4.toDouble(),
-                    label: _model.sliderValue4?.toStringAsFixed(0),
+                    value: _model.slider4Value ??= 1.0,
+                    label: _model.slider4Value?.toStringAsFixed(0),
                     onChanged: (newValue) async {
                       newValue = double.parse(newValue.toStringAsFixed(0));
-                      safeSetState(() => _model.sliderValue4 = newValue);
+                      safeSetState(() => _model.slider4Value = newValue);
                       logFirebaseEvent(
-                          'SURVEY_Slider_ahvjabgd_ON_FORM_WIDGET_SE');
-                      logFirebaseEvent('Slider_update_app_state');
+                          'SURVEY_Slider4_ON_FORM_WIDGET_SELECTED');
+                      logFirebaseEvent('Slider4_update_app_state');
                       FFAppState().sliderValue4 = FFAppState().sliderValue4;
                       safeSetState(() {});
                     },
@@ -225,7 +239,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                 ),
                 Text(
                   valueOrDefault<String>(
-                    _model.sliderValue4?.toString(),
+                    _model.slider4Value?.toString(),
                     '1',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -242,11 +256,25 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                         .doc()
                         .set(createSurveyresponseRecordData(
                           userID: currentUserUid,
-                          ratingQuestion2: FFAppState().sliderValue2,
-                          ratingQuestion3: FFAppState().sliderValue3,
-                          ratingQuestion4: FFAppState().sliderValue4,
-                          ratingQuestion1: FFAppState().sliderValue,
+                          ratingQuestion2: _model.slider2Value,
+                          ratingQuestion3: _model.slider3Value,
+                          ratingQuestion4: _model.slider4Value,
+                          ratingQuestion1: _model.slider1Value,
                         ));
+                    logFirebaseEvent('Button_google_analytics_event');
+                    logFirebaseEvent(
+                      'survey_submission',
+                      parameters: {
+                        _model.slider1Value?.toString(): _model.slider1Value,
+                        _model.slider2Value?.toString(): _model.slider2Value,
+                        _model.slider3Value?.toString(): _model.slider3Value,
+                        _model.slider4Value?.toString(): _model.slider4Value,
+                        'timestamp': getCurrentTimestamp,
+                      },
+                    );
+                    logFirebaseEvent('Button_navigate_to');
+
+                    context.goNamed('profile');
                   },
                   text: 'Submit',
                   options: FFButtonOptions(

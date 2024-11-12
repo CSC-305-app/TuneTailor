@@ -7,11 +7,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
+  /// Page
   const ProfileWidget({super.key});
 
   @override
@@ -49,6 +52,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -410,9 +415,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent('PROFILE_PAGE_SignOut_ON_TAP');
+                          logFirebaseEvent('SignOut_backend_call');
+                          unawaited(
+                            () async {
+                              await currentUserReference!.update({
+                                ...mapToFirestore(
+                                  {
+                                    'signoutCount': FieldValue.increment(1),
+                                  },
+                                ),
+                              });
+                            }(),
+                          );
                           logFirebaseEvent('SignOut_navigate_to');
 
-                          context.pushNamed('Start');
+                          context.pushNamedAuth('Start', context.mounted);
+
+                          logFirebaseEvent('SignOut_auth');
+                          GoRouter.of(context).prepareAuthEvent();
+                          await authManager.signOut();
+                          GoRouter.of(context).clearRedirectLocation();
                         },
                         text: 'Sign Out',
                         options: FFButtonOptions(

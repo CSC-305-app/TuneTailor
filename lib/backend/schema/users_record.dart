@@ -60,6 +60,16 @@ class UsersRecord extends FirestoreRecord {
   String get userName => _userName ?? '';
   bool hasUserName() => _userName != null;
 
+  // "signoutCount" field.
+  int? _signoutCount;
+  int get signoutCount => _signoutCount ?? 0;
+  bool hasSignoutCount() => _signoutCount != null;
+
+  // "isGoogle" field.
+  bool? _isGoogle;
+  bool get isGoogle => _isGoogle ?? false;
+  bool hasIsGoogle() => _isGoogle != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -70,6 +80,8 @@ class UsersRecord extends FirestoreRecord {
     _editedTime = snapshotData['edited_time'] as DateTime?;
     _bio = snapshotData['bio'] as String?;
     _userName = snapshotData['user_name'] as String?;
+    _signoutCount = castToType<int>(snapshotData['signoutCount']);
+    _isGoogle = snapshotData['isGoogle'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +127,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? editedTime,
   String? bio,
   String? userName,
+  int? signoutCount,
+  bool? isGoogle,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +141,8 @@ Map<String, dynamic> createUsersRecordData({
       'edited_time': editedTime,
       'bio': bio,
       'user_name': userName,
+      'signoutCount': signoutCount,
+      'isGoogle': isGoogle,
     }.withoutNulls,
   );
 
@@ -146,7 +162,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.editedTime == e2?.editedTime &&
         e1?.bio == e2?.bio &&
-        e1?.userName == e2?.userName;
+        e1?.userName == e2?.userName &&
+        e1?.signoutCount == e2?.signoutCount &&
+        e1?.isGoogle == e2?.isGoogle;
   }
 
   @override
@@ -159,7 +177,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.editedTime,
         e?.bio,
-        e?.userName
+        e?.userName,
+        e?.signoutCount,
+        e?.isGoogle
       ]);
 
   @override

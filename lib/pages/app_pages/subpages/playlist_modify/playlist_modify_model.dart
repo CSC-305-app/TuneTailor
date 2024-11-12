@@ -4,6 +4,10 @@ import 'playlist_modify_widget.dart' show PlaylistModifyWidget;
 import 'package:flutter/material.dart';
 
 class PlaylistModifyModel extends FlutterFlowModel<PlaylistModifyWidget> {
+  ///  Local state fields for this page.
+
+  bool editMode = false;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PlaylistTitle widget.

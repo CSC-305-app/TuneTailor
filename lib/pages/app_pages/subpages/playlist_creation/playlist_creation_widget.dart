@@ -75,7 +75,10 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 20.0),
                               child: Text(
-                                'Playlist Creation',
+                                valueOrDefault<String>(
+                                  _model.playlistTitleTextController.text,
+                                  'Create Playlist',
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
@@ -367,6 +370,21 @@ class _PlaylistCreationWidgetState extends State<PlaylistCreationWidget> {
                                     ),
                                   ),
                                 ],
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: 250.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: ListView(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: const [],
+                                ),
                               ),
                             ],
                           ),

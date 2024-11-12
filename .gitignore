@@ -27,3 +27,6 @@ pubspec.lock
 
 # Web output (if generated)
 web/
+
+# Devtools
+devtools_options.yaml

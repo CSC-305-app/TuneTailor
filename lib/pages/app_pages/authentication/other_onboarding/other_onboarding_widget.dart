@@ -1,32 +1,35 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'onboarding_model.dart';
-export 'onboarding_model.dart';
+import 'other_onboarding_model.dart';
+export 'other_onboarding_model.dart';
 
-class OnboardingWidget extends StatefulWidget {
+class OtherOnboardingWidget extends StatefulWidget {
   /// Page for users to add their personal info, choose preferences, etc.
-  const OnboardingWidget({super.key});
+  const OtherOnboardingWidget({super.key});
 
   @override
-  State<OnboardingWidget> createState() => _OnboardingWidgetState();
+  State<OtherOnboardingWidget> createState() => _OtherOnboardingWidgetState();
 }
 
-class _OnboardingWidgetState extends State<OnboardingWidget> {
-  late OnboardingModel _model;
+class _OtherOnboardingWidgetState extends State<OtherOnboardingWidget> {
+  late OtherOnboardingModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => OnboardingModel());
+    _model = createModel(context, () => OtherOnboardingModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Onboarding'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'OtherOnboarding'});
     _model.fNameTextController ??= TextEditingController();
     _model.fNameFocusNode ??= FocusNode();
 
@@ -90,7 +93,64 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         logFirebaseEvent(
-                            'ONBOARDING_PAGE_Stack_e234lme4_ON_TAP');
+                            'OTHER_ONBOARDING_Stack_8er66jcg_ON_TAP');
+                        logFirebaseEvent('Stack_upload_media_to_firebase');
+                        final selectedMedia =
+                            await selectMediaWithSourceBottomSheet(
+                          context: context,
+                          maxWidth: 136.00,
+                          allowPhoto: true,
+                        );
+                        if (selectedMedia != null &&
+                            selectedMedia.every((m) =>
+                                validateFileFormat(m.storagePath, context))) {
+                          safeSetState(() => _model.isDataUploading = true);
+                          var selectedUploadedFiles = <FFUploadedFile>[];
+
+                          var downloadUrls = <String>[];
+                          try {
+                            selectedUploadedFiles = selectedMedia
+                                .map((m) => FFUploadedFile(
+                                      name: m.storagePath.split('/').last,
+                                      bytes: m.bytes,
+                                      height: m.dimensions?.height,
+                                      width: m.dimensions?.width,
+                                      blurHash: m.blurHash,
+                                    ))
+                                .toList();
+
+                            downloadUrls = (await Future.wait(
+                              selectedMedia.map(
+                                (m) async =>
+                                    await uploadData(m.storagePath, m.bytes),
+                              ),
+                            ))
+                                .where((u) => u != null)
+                                .map((u) => u!)
+                                .toList();
+                          } finally {
+                            _model.isDataUploading = false;
+                          }
+                          if (selectedUploadedFiles.length ==
+                                  selectedMedia.length &&
+                              downloadUrls.length == selectedMedia.length) {
+                            safeSetState(() {
+                              _model.uploadedLocalFile =
+                                  selectedUploadedFiles.first;
+                              _model.uploadedFileUrl = downloadUrls.first;
+                            });
+                          } else {
+                            safeSetState(() {});
+                            return;
+                          }
+                        }
+
+                        logFirebaseEvent('Stack_backend_call');
+
+                        await currentUserReference!
+                            .update(createUsersRecordData(
+                          photoUrl: _model.uploadedFileUrl,
+                        ));
                       },
                       child: Stack(
                         alignment: const AlignmentDirectional(-1.0, 1.0),
@@ -104,6 +164,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: Image.network(
+                                    _model.uploadedFileUrl,
+                                  ).image,
+                                ),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color:
@@ -344,85 +410,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     ),
                     FFButtonWidget(
                       onPressed: () async {
-                        logFirebaseEvent('ONBOARDING_PAGE_setBirthday_ON_TAP');
-                        logFirebaseEvent('setBirthday_date_time_picker');
-                        final datePickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: getCurrentTimestamp,
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2050),
-                          builder: (context, child) {
-                            return wrapInMaterialDatePickerTheme(
-                              context,
-                              child!,
-                              headerBackgroundColor:
-                                  FlutterFlowTheme.of(context).primary,
-                              headerForegroundColor:
-                                  FlutterFlowTheme.of(context).info,
-                              headerTextStyle: FlutterFlowTheme.of(context)
-                                  .headlineLarge
-                                  .override(
-                                    fontFamily: 'Inter Tight',
-                                    fontSize: 32.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              pickerBackgroundColor:
-                                  FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                              pickerForegroundColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              selectedDateTimeBackgroundColor:
-                                  FlutterFlowTheme.of(context).primary,
-                              selectedDateTimeForegroundColor:
-                                  FlutterFlowTheme.of(context).info,
-                              actionButtonForegroundColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              iconSize: 24.0,
-                            );
-                          },
-                        );
-
-                        if (datePickedDate != null) {
-                          safeSetState(() {
-                            _model.datePicked = DateTime(
-                              datePickedDate.year,
-                              datePickedDate.month,
-                              datePickedDate.day,
-                            );
-                          });
-                        }
-                      },
-                      text: 'Set Birthday',
-                      icon: const Icon(
-                        Icons.calendar_today,
-                        size: 15.0,
-                      ),
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 64.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleLarge.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
-                        logFirebaseEvent('finish_backend_call');
+                        logFirebaseEvent(
+                            'OTHER_ONBOARDING_PAGE_nextButton_ON_TAP');
+                        logFirebaseEvent('nextButton_backend_call');
 
                         await currentUserReference!
                             .update(createUsersRecordData(
@@ -430,23 +420,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           bio: _model.lNameTextController.text,
                           userName: _model.userNameTextController.text,
                         ));
-                        logFirebaseEvent('finish_google_analytics_event');
+                        logFirebaseEvent('nextButton_google_analytics_event');
                         logFirebaseEvent(
                           'finish_onboarding',
                           parameters: {
                             'Onboard_Btn': 'Onbrd',
                           },
                         );
-                        logFirebaseEvent('finish_navigate_to');
+                        logFirebaseEvent('nextButton_navigate_to');
 
                         context.pushNamed('social');
                       },
-                      text: 'Finish',
+                      text: 'Next',
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                        size: 15.0,
+                      ),
                       options: FFButtonOptions(
                         width: 200.0,
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
+                        iconAlignment: IconAlignment.end,
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: const Color(0x7857636C),

@@ -67,18 +67,20 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
+    GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const PlaylistCreationWidget() : const StartWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? entryPage ?? const SocialWidget()
+          : const StartWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? const PlaylistCreationWidget()
+              ? entryPage ?? const SocialWidget()
               : const StartWidget(),
         ),
         FFRoute(
@@ -107,11 +109,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const SocialWidget(),
         ),
         FFRoute(
-          name: 'profile',
-          path: '/profile',
-          builder: (context, params) => const ProfileWidget(),
-        ),
-        FFRoute(
           name: 'settings',
           path: '/settings',
           builder: (context, params) => const SettingsWidget(),
@@ -125,6 +122,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PlaylistModify',
           path: '/playlistModify',
           builder: (context, params) => const PlaylistModifyWidget(),
+        ),
+        FFRoute(
+          name: 'profile',
+          path: '/profile',
+          builder: (context, params) => const ProfileWidget(),
+        ),
+        FFRoute(
+          name: 'OtherOnboarding',
+          path: '/otherOnboarding',
+          builder: (context, params) => const OtherOnboardingWidget(),
+        ),
+        FFRoute(
+          name: 'GenrePreferences',
+          path: '/GenrePreferences',
+          builder: (context, params) => const GenrePreferencesWidget(),
+        ),
+        FFRoute(
+          name: 'ArtistPreferences',
+          path: '/artistPreferences',
+          builder: (context, params) => const ArtistPreferencesWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

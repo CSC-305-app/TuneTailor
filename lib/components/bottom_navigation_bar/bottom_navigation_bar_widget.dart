@@ -247,7 +247,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                                 () => _model.noteMouseRegionHovered = false);
                           }),
                           child: Opacity(
-                            opacity: widget.selectedPageIndex == 2 ? 1.0 : 0.5,
+                            opacity: widget.selectedPageIndex == 2 ? 2.0 : 0.5,
                             child: FlutterFlowIconButton(
                               key: const ValueKey('NoteIconButton'),
                               borderColor: Colors.transparent,
@@ -330,7 +330,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Opacity(
-                          opacity: widget.selectedPageIndex == 4 ? 1.0 : 0.5,
+                          opacity: widget.selectedPageIndex == 4 ? 4.0 : 0.5,
                           child: FlutterFlowIconButton(
                             key: const ValueKey('SettingsIconButton'),
                             borderColor: Colors.transparent,

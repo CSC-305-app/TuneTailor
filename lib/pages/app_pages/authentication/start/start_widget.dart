@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/signin_options_widget.dart';
+import '/components/signin_options/signin_options_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'start_model.dart';
 export 'start_model.dart';
 
@@ -60,6 +61,8 @@ class _StartWidgetState extends State<StartWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -692,6 +695,13 @@ class _StartWidgetState extends State<StartWidget>
                       ],
                     ),
                   ),
+                  Text(
+                    FFAppState().authError,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          letterSpacing: 0.0,
+                        ),
+                  ),
                   FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent(
@@ -773,6 +783,7 @@ class _StartWidgetState extends State<StartWidget>
                                     'example@gmail.com',
                                   ),
                                   createdTime: getCurrentTimestamp,
+                                  signoutCount: 0,
                                 ));
 
                             logFirebaseEvent('signUpButton_navigate_to');
@@ -815,8 +826,8 @@ class _StartWidgetState extends State<StartWidget>
 
                             final user = await authManager.signInWithEmail(
                               context,
-                              _model.signUpEmailTextController.text,
-                              _model.signUpPassTextController.text,
+                              _model.loginEmailTextController.text,
+                              _model.loginPassTextController.text,
                             );
                             if (user == null) {
                               return;

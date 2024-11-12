@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -190,14 +189,9 @@ class _SigninOptionsWidgetState extends State<SigninOptionsWidget> {
                   if (user == null) {
                     return;
                   }
-                  logFirebaseEvent('Button_backend_call');
-
-                  await currentUserReference!.update(createUsersRecordData());
-                  logFirebaseEvent('Button_google_analytics_event');
-                  logFirebaseEvent('google_button_on-tap');
                   logFirebaseEvent('Button_navigate_to');
 
-                  context.pushNamedAuth('Onboarding', context.mounted);
+                  context.pushNamedAuth('OtherOnboarding', context.mounted);
                 },
                 text: 'Sign in with Google',
                 icon: const FaIcon(

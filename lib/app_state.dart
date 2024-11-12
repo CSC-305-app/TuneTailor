@@ -67,10 +67,28 @@ class FFAppState extends ChangeNotifier {
     prefs.setInt('ff_sliderValue4', value);
   }
 
+  String _authError = '';
+  String get authError => _authError;
+  set authError(String value) {
+    _authError = value;
+  }
+
   DocumentReference? _selectedPlaylist;
   DocumentReference? get selectedPlaylist => _selectedPlaylist;
   set selectedPlaylist(DocumentReference? value) {
     _selectedPlaylist = value;
+  }
+
+  String _SelectedPlaylistName = '';
+  String get SelectedPlaylistName => _SelectedPlaylistName;
+  set SelectedPlaylistName(String value) {
+    _SelectedPlaylistName = value;
+  }
+
+  String _SelectedPlaylistPhoto = '';
+  String get SelectedPlaylistPhoto => _SelectedPlaylistPhoto;
+  set SelectedPlaylistPhoto(String value) {
+    _SelectedPlaylistPhoto = value;
   }
 }
 

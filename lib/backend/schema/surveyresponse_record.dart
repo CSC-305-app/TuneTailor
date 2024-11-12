@@ -20,38 +20,38 @@ class SurveyresponseRecord extends FirestoreRecord {
   DateTime? get timestamp => _timestamp;
   bool hasTimestamp() => _timestamp != null;
 
-  // "rating_question2" field.
-  int? _ratingQuestion2;
-  int get ratingQuestion2 => _ratingQuestion2 ?? 0;
-  bool hasRatingQuestion2() => _ratingQuestion2 != null;
-
-  // "rating_question3" field.
-  int? _ratingQuestion3;
-  int get ratingQuestion3 => _ratingQuestion3 ?? 0;
-  bool hasRatingQuestion3() => _ratingQuestion3 != null;
-
-  // "rating_question4" field.
-  int? _ratingQuestion4;
-  int get ratingQuestion4 => _ratingQuestion4 ?? 0;
-  bool hasRatingQuestion4() => _ratingQuestion4 != null;
-
   // "userID" field.
   String? _userID;
   String get userID => _userID ?? '';
   bool hasUserID() => _userID != null;
 
   // "rating_question1" field.
-  int? _ratingQuestion1;
-  int get ratingQuestion1 => _ratingQuestion1 ?? 0;
+  double? _ratingQuestion1;
+  double get ratingQuestion1 => _ratingQuestion1 ?? 0.0;
   bool hasRatingQuestion1() => _ratingQuestion1 != null;
+
+  // "rating_question2" field.
+  double? _ratingQuestion2;
+  double get ratingQuestion2 => _ratingQuestion2 ?? 0.0;
+  bool hasRatingQuestion2() => _ratingQuestion2 != null;
+
+  // "rating_question3" field.
+  double? _ratingQuestion3;
+  double get ratingQuestion3 => _ratingQuestion3 ?? 0.0;
+  bool hasRatingQuestion3() => _ratingQuestion3 != null;
+
+  // "rating_question4" field.
+  double? _ratingQuestion4;
+  double get ratingQuestion4 => _ratingQuestion4 ?? 0.0;
+  bool hasRatingQuestion4() => _ratingQuestion4 != null;
 
   void _initializeFields() {
     _timestamp = snapshotData['timestamp'] as DateTime?;
-    _ratingQuestion2 = castToType<int>(snapshotData['rating_question2']);
-    _ratingQuestion3 = castToType<int>(snapshotData['rating_question3']);
-    _ratingQuestion4 = castToType<int>(snapshotData['rating_question4']);
     _userID = snapshotData['userID'] as String?;
-    _ratingQuestion1 = castToType<int>(snapshotData['rating_question1']);
+    _ratingQuestion1 = castToType<double>(snapshotData['rating_question1']);
+    _ratingQuestion2 = castToType<double>(snapshotData['rating_question2']);
+    _ratingQuestion3 = castToType<double>(snapshotData['rating_question3']);
+    _ratingQuestion4 = castToType<double>(snapshotData['rating_question4']);
   }
 
   static CollectionReference get collection =>
@@ -90,20 +90,20 @@ class SurveyresponseRecord extends FirestoreRecord {
 
 Map<String, dynamic> createSurveyresponseRecordData({
   DateTime? timestamp,
-  int? ratingQuestion2,
-  int? ratingQuestion3,
-  int? ratingQuestion4,
   String? userID,
-  int? ratingQuestion1,
+  double? ratingQuestion1,
+  double? ratingQuestion2,
+  double? ratingQuestion3,
+  double? ratingQuestion4,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'timestamp': timestamp,
+      'userID': userID,
+      'rating_question1': ratingQuestion1,
       'rating_question2': ratingQuestion2,
       'rating_question3': ratingQuestion3,
       'rating_question4': ratingQuestion4,
-      'userID': userID,
-      'rating_question1': ratingQuestion1,
     }.withoutNulls,
   );
 
@@ -117,21 +117,21 @@ class SurveyresponseRecordDocumentEquality
   @override
   bool equals(SurveyresponseRecord? e1, SurveyresponseRecord? e2) {
     return e1?.timestamp == e2?.timestamp &&
+        e1?.userID == e2?.userID &&
+        e1?.ratingQuestion1 == e2?.ratingQuestion1 &&
         e1?.ratingQuestion2 == e2?.ratingQuestion2 &&
         e1?.ratingQuestion3 == e2?.ratingQuestion3 &&
-        e1?.ratingQuestion4 == e2?.ratingQuestion4 &&
-        e1?.userID == e2?.userID &&
-        e1?.ratingQuestion1 == e2?.ratingQuestion1;
+        e1?.ratingQuestion4 == e2?.ratingQuestion4;
   }
 
   @override
   int hash(SurveyresponseRecord? e) => const ListEquality().hash([
         e?.timestamp,
+        e?.userID,
+        e?.ratingQuestion1,
         e?.ratingQuestion2,
         e?.ratingQuestion3,
-        e?.ratingQuestion4,
-        e?.userID,
-        e?.ratingQuestion1
+        e?.ratingQuestion4
       ]);
 
   @override

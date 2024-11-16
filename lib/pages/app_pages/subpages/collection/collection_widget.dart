@@ -182,6 +182,10 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                                                         .SelectedPlaylistName =
                                                     gridViewPlaylistsRecord
                                                         .title;
+                                                FFAppState()
+                                                        .SelectedPlaylistPhoto =
+                                                    gridViewPlaylistsRecord
+                                                        .photoUrl;
                                                 safeSetState(() {});
                                               },
                                               child: PlaylistWidget(

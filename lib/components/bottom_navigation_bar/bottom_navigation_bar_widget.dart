@@ -204,7 +204,6 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                               hoverColor:
                                   FlutterFlowTheme.of(context).secondary,
                               icon: Icon(
-                                key: const ValueKey('HomeIconButton'),
                                 Icons.cottage_outlined,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
@@ -257,7 +256,6 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                               hoverColor:
                                   FlutterFlowTheme.of(context).secondary,
                               icon: Icon(
-                                key: const ValueKey('NoteIconButton'),
                                 Icons.library_music_rounded,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
@@ -299,7 +297,6 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                             buttonSize: 50.0,
                             hoverColor: FlutterFlowTheme.of(context).secondary,
                             icon: Icon(
-                              key: const ValueKey('ProfileIconButton'),
                               Icons.person_outline,
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,
@@ -339,7 +336,6 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                             buttonSize: 50.0,
                             hoverColor: FlutterFlowTheme.of(context).secondary,
                             icon: Icon(
-                              key: const ValueKey('SettingsIconButton'),
                               Icons.settings_outlined,
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,

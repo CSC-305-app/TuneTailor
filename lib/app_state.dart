@@ -90,6 +90,12 @@ class FFAppState extends ChangeNotifier {
   set SelectedPlaylistPhoto(String value) {
     _SelectedPlaylistPhoto = value;
   }
+
+  String _spotifyAccessToken = '';
+  String get spotifyAccessToken => _spotifyAccessToken;
+  set spotifyAccessToken(String value) {
+    _spotifyAccessToken = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

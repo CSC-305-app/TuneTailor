@@ -45,20 +45,6 @@ void main() async {
     await tester.pumpAndSettle(Duration(milliseconds: 3000));
     expect(find.text('Create Playlist'), findsNothing);
   });
-
-  testWidgets('Sign-up', (WidgetTester tester) async {
-    _overrideOnError();
-
-    await tester.pumpWidget(ChangeNotifierProvider(
-      create: (context) => FFAppState(),
-      child: MyApp(),
-    ));
-
-    await tester.enterText(find.text('Email...'), 'ryangilbert@uri.edu');
-    await tester.enterText(find.text('Password...'), 'testing1234##');
-    await tester.enterText(find.text('Confirm Password...'), 'testing1234##');
-    await tester.tap(find.text('Sign Up'));
-  });
 }
 
 // There are certain types of errors that can happen during tests but

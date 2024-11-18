@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/signin_options/signin_options_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -751,44 +752,72 @@ class _StartWidgetState extends State<StartWidget>
                                 !_model.formKey1.currentState!.validate()) {
                               return;
                             }
-                            logFirebaseEvent('signUpButton_auth');
-                            GoRouter.of(context).prepareAuthEvent();
-                            if (_model.signUpPassTextController.text !=
-                                _model.signUpConfirmPassTextController.text) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Passwords don\'t match!',
+                            logFirebaseEvent('signUpButton_backend_call');
+                            _model.apiResultpfn = await SendEmailCall.call(
+                              to: _model.signUpEmailTextController.text,
+                              subject: 'Welcome!',
+                              text: 'Welcome to TuneTailor!',
+                            );
+
+                            if ((_model.apiResultpfn?.succeeded ?? true)) {
+                              logFirebaseEvent('signUpButton_auth');
+                              GoRouter.of(context).prepareAuthEvent();
+                              if (_model.signUpPassTextController.text !=
+                                  _model.signUpConfirmPassTextController.text) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Passwords don\'t match!',
+                                    ),
                                   ),
+                                );
+                                return;
+                              }
+
+                              final user =
+                                  await authManager.createAccountWithEmail(
+                                context,
+                                _model.signUpEmailTextController.text,
+                                _model.signUpPassTextController.text,
+                              );
+                              if (user == null) {
+                                return;
+                              }
+
+                              await UsersRecord.collection
+                                  .doc(user.uid)
+                                  .update(createUsersRecordData(
+                                    email: valueOrDefault<String>(
+                                      _model.signUpEmailTextController.text,
+                                      'example@gmail.com',
+                                    ),
+                                    createdTime: getCurrentTimestamp,
+                                    signoutCount: 0,
+                                  ));
+
+                              logFirebaseEvent('signUpButton_navigate_to');
+
+                              context.goNamedAuth(
+                                  'Onboarding', context.mounted);
+                            } else {
+                              logFirebaseEvent('signUpButton_show_snack_bar');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Failed to send email.',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
                                 ),
                               );
-                              return;
                             }
 
-                            final user =
-                                await authManager.createAccountWithEmail(
-                              context,
-                              _model.signUpEmailTextController.text,
-                              _model.signUpPassTextController.text,
-                            );
-                            if (user == null) {
-                              return;
-                            }
-
-                            await UsersRecord.collection
-                                .doc(user.uid)
-                                .update(createUsersRecordData(
-                                  email: valueOrDefault<String>(
-                                    _model.signUpEmailTextController.text,
-                                    'example@gmail.com',
-                                  ),
-                                  createdTime: getCurrentTimestamp,
-                                  signoutCount: 0,
-                                ));
-
-                            logFirebaseEvent('signUpButton_navigate_to');
-
-                            context.goNamedAuth('Onboarding', context.mounted);
+                            safeSetState(() {});
                           },
                           text: 'Sign Up',
                           options: FFButtonOptions(

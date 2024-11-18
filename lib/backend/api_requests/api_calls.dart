@@ -38,6 +38,168 @@ class SendEmailCall {
   }
 }
 
+class EmailsendCall {
+  static Future<ApiCallResponse> call({
+    String? to = '',
+    String? subject = '',
+    String? text = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "to": "${escapeStringForJson(to)}",
+  "subject": "${escapeStringForJson(subject)}",
+  "text": "${escapeStringForJson(text)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'emailsend',
+      apiUrl: 'https://sendemailtouser-ww3afd5vfq-uc.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class SpotifyAccessTokenCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'spotifyAccessToken',
+      apiUrl: 'https://accounts.spotify.com/api/token',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      params: {
+        'client_id': "7f50af207dce4ca4939794d677bd4316",
+        'client_secret': "f2ac98b426d943a08709a128f3bffc3d",
+        'grant_type': "client_credentials",
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? accessToken(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.access_token''',
+      ));
+}
+
+class GetArtistInfoCall {
+  static Future<ApiCallResponse> call({
+    String? authToken = '',
+    String? artistName = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getArtistInfo',
+      apiUrl: 'https://api.spotify.com/v1/search',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $authToken',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'q': "artist:$artistName",
+        'type': "artist",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List? artistItems(dynamic response) => getJsonField(
+        response,
+        r'''$.artists.items''',
+        true,
+      ) as List?;
+  static List? artistItemImages(dynamic response) => getJsonField(
+        response,
+        r'''$.artists.items[:].images''',
+        true,
+      ) as List?;
+  static List<String>? artistItemImagesUrls(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].images[:].url''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? artistItemNames(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? artistItemPopularity(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].popularity''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? artistItemImagesHeight(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].images[:].height''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? artistItemImagesWidth(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].images[:].width''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? artistItemSpotifyID(dynamic response) => (getJsonField(
+        response,
+        r'''$.artists.items[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? artistItemGenres(dynamic response) => getJsonField(
+        response,
+        r'''$.artists.items[:].genres''',
+        true,
+      ) as List?;
+  static dynamic artists(dynamic response) => getJsonField(
+        response,
+        r'''$.artists''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -83,4 +245,15 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
     }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
 }

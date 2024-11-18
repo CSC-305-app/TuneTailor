@@ -414,29 +414,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent('PROFILE_PAGE_SignOut_ON_TAP');
-                          logFirebaseEvent('SignOut_backend_call');
-                          unawaited(
-                            () async {
-                              await currentUserReference!.update({
-                                ...mapToFirestore(
-                                  {
-                                    'signoutCount': FieldValue.increment(1),
-                                  },
-                                ),
-                              });
-                            }(),
-                          );
-                          logFirebaseEvent('SignOut_navigate_to');
+                          logFirebaseEvent(
+                              'PROFILE_changeArtistPreferences_ON_TAP');
+                          logFirebaseEvent(
+                              'changeArtistPreferences_navigate_to');
 
-                          context.pushNamedAuth('Start', context.mounted);
-
-                          logFirebaseEvent('SignOut_auth');
-                          GoRouter.of(context).prepareAuthEvent();
-                          await authManager.signOut();
-                          GoRouter.of(context).clearRedirectLocation();
+                          context.pushNamed('ArtistPreferences');
                         },
-                        text: 'Sign Out',
+                        text: 'Change Artist Preferences',
                         options: FFButtonOptions(
                           height: 40.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(
@@ -454,6 +439,55 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                           borderRadius: BorderRadius.circular(24.0),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent('PROFILE_PAGE_SignOut_ON_TAP');
+                            logFirebaseEvent('SignOut_backend_call');
+                            unawaited(
+                              () async {
+                                await currentUserReference!.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'signoutCount': FieldValue.increment(1),
+                                    },
+                                  ),
+                                });
+                              }(),
+                            );
+                            logFirebaseEvent('SignOut_navigate_to');
+
+                            context.pushNamedAuth('Start', context.mounted);
+
+                            logFirebaseEvent('SignOut_auth');
+                            GoRouter.of(context).prepareAuthEvent();
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
+                          },
+                          text: 'Sign Out',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: const Color(0x7857636C),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
                         ),
                       ),
                     ],

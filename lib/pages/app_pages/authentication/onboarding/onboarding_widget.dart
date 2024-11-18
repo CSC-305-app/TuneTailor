@@ -439,7 +439,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         );
                         logFirebaseEvent('finish_navigate_to');
 
-                        context.pushNamed('social');
+                        context.pushNamed('ArtistPreferences');
                       },
                       text: 'Finish',
                       options: FFButtonOptions(

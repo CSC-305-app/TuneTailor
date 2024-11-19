@@ -3,3 +3,4 @@
 https://docs.google.com/presentation/d/1CLf8wnlPDUJPlbmMbHgvjB_nGZKlvz3-6YJbs0RELeg/edit?usp=sharing)
 4. [US3: Backend Management]()
 5. [US4: Golden Path](https://docs.google.com/presentation/d/17X9W3XNTxmcHp0dh7qVmFsamGz0lCmEiG4j1GzByhpQ/edit?usp=sharing)
+6. [US5: Spotify API integration](https://docs.google.com/presentation/d/1WT9uH0IhoeplLWkulC1aFcq4_oHnVKozvj9FG4rpA5Y/edit?usp=sharing)

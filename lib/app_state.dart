@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/backend/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -29,6 +28,10 @@ class FFAppState extends ChangeNotifier {
     });
     _safeInit(() {
       _sliderValue4 = prefs.getInt('ff_sliderValue4') ?? _sliderValue4;
+    });
+    _safeInit(() {
+      _preferenceRef =
+          prefs.getString('ff_preferenceRef')?.ref ?? _preferenceRef;
     });
   }
 
@@ -95,6 +98,15 @@ class FFAppState extends ChangeNotifier {
   String get spotifyAccessToken => _spotifyAccessToken;
   set spotifyAccessToken(String value) {
     _spotifyAccessToken = value;
+  }
+
+  DocumentReference? _preferenceRef;
+  DocumentReference? get preferenceRef => _preferenceRef;
+  set preferenceRef(DocumentReference? value) {
+    _preferenceRef = value;
+    value != null
+        ? prefs.setString('ff_preferenceRef', value.path)
+        : prefs.remove('ff_preferenceRef');
   }
 }
 

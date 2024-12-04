@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/components/playlist/playlist_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -207,27 +206,6 @@ class _CollectionWidgetState extends State<CollectionWidget> {
                           ),
                         ),
                       ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 100.0,
-                          decoration: const BoxDecoration(),
-                          child: wrapWithModel(
-                            model: _model.bottomNavigationBarModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: BottomNavigationBarWidget(
-                              hidden: false,
-                              showCentralButton: false,
-                              onTapCentralButton: () async {},
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),

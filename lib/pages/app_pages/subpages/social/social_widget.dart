@@ -1,4 +1,3 @@
-import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'social_model.dart';
@@ -47,32 +46,10 @@ class _SocialWidgetState extends State<SocialWidget> {
             width: double.infinity,
             height: double.infinity,
             decoration: const BoxDecoration(),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(),
-                      child: wrapWithModel(
-                        model: _model.bottomNavigationBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: BottomNavigationBarWidget(
-                          hidden: false,
-                          showCentralButton: false,
-                          onTapCentralButton: () async {},
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              children: [],
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'onboarding_widget.dart' show OnboardingWidget;
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
   TextEditingController? userNameTextController;
   String? Function(BuildContext, String?)? userNameTextControllerValidator;
   DateTime? datePicked;
+  // Stores action output result for [Backend Call - Create Document] action in finish widget.
+  PlaylistsRecord? playlistOutput;
 
   @override
   void initState(BuildContext context) {}

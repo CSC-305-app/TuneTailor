@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,12 +41,19 @@ class PlaylistsRecord extends FirestoreRecord {
   String get photoUrl => _photoUrl ?? '';
   bool hasPhotoUrl() => _photoUrl != null;
 
+  // "albumDocReferences" field.
+  List<DocumentReference>? _albumDocReferences;
+  List<DocumentReference> get albumDocReferences =>
+      _albumDocReferences ?? const [];
+  bool hasAlbumDocReferences() => _albumDocReferences != null;
+
   void _initializeFields() {
     _title = snapshotData['Title'] as String?;
     _songNumber = castToType<int>(snapshotData['song_number']);
     _user = snapshotData['user'] as DocumentReference?;
     _created = snapshotData['created'] as DateTime?;
     _photoUrl = snapshotData['Photo_url'] as String?;
+    _albumDocReferences = getDataList(snapshotData['albumDocReferences']);
   }
 
   static CollectionReference get collection =>
@@ -107,16 +115,24 @@ class PlaylistsRecordDocumentEquality implements Equality<PlaylistsRecord> {
 
   @override
   bool equals(PlaylistsRecord? e1, PlaylistsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.title == e2?.title &&
         e1?.songNumber == e2?.songNumber &&
         e1?.user == e2?.user &&
         e1?.created == e2?.created &&
-        e1?.photoUrl == e2?.photoUrl;
+        e1?.photoUrl == e2?.photoUrl &&
+        listEquality.equals(e1?.albumDocReferences, e2?.albumDocReferences);
   }
 
   @override
-  int hash(PlaylistsRecord? e) => const ListEquality()
-      .hash([e?.title, e?.songNumber, e?.user, e?.created, e?.photoUrl]);
+  int hash(PlaylistsRecord? e) => const ListEquality().hash([
+        e?.title,
+        e?.songNumber,
+        e?.user,
+        e?.created,
+        e?.photoUrl,
+        e?.albumDocReferences
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is PlaylistsRecord;

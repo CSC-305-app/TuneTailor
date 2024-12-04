@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -72,15 +73,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? entryPage ?? const SocialWidget()
-          : const StartWidget(),
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? entryPage ?? const NavBarPage() : const StartWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? entryPage ?? const SocialWidget()
+              ? entryPage ?? const NavBarPage()
               : const StartWidget(),
         ),
         FFRoute(
@@ -96,22 +96,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
         FFRoute(
           name: 'PlaylistCreation',
           path: '/playlistCreation',
-          builder: (context, params) => const PlaylistCreationWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'PlaylistCreation')
+              : const PlaylistCreationWidget(),
         ),
         FFRoute(
           name: 'Collection',
           path: '/collection',
-          builder: (context, params) => const CollectionWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Collection')
+              : const CollectionWidget(),
         ),
         FFRoute(
           name: 'social',
           path: '/social',
-          builder: (context, params) => const SocialWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'social')
+              : const SocialWidget(),
         ),
         FFRoute(
           name: 'settings',
           path: '/settings',
-          builder: (context, params) => const SettingsWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'settings')
+              : const SettingsWidget(),
         ),
         FFRoute(
           name: 'survey',
@@ -119,14 +127,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const SurveyWidget(),
         ),
         FFRoute(
-          name: 'PlaylistModify',
-          path: '/playlistModify',
-          builder: (context, params) => const PlaylistModifyWidget(),
-        ),
-        FFRoute(
           name: 'profile',
           path: '/profile',
-          builder: (context, params) => const ProfileWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'profile')
+              : const ProfileWidget(),
         ),
         FFRoute(
           name: 'OtherOnboarding',
@@ -142,6 +147,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           name: 'ArtistPreferences',
           path: '/artistPreferences',
           builder: (context, params) => const ArtistPreferencesWidget(),
+        ),
+        FFRoute(
+          name: 'PlaylistModify',
+          path: '/playlistModify',
+          builder: (context, params) => const PlaylistModifyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

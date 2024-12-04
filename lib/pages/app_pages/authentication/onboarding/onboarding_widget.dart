@@ -422,24 +422,55 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('ONBOARDING_PAGE_finish_ON_TAP');
-                        logFirebaseEvent('finish_backend_call');
+                        final firestoreBatch =
+                            FirebaseFirestore.instance.batch();
+                        try {
+                          logFirebaseEvent('finish_backend_call');
 
-                        await currentUserReference!
-                            .update(createUsersRecordData(
-                          displayName: _model.fNameTextController.text,
-                          bio: _model.lNameTextController.text,
-                          userName: _model.userNameTextController.text,
-                        ));
-                        logFirebaseEvent('finish_google_analytics_event');
-                        logFirebaseEvent(
-                          'finish_onboarding',
-                          parameters: {
-                            'Onboard_Btn': 'Onbrd',
-                          },
-                        );
-                        logFirebaseEvent('finish_navigate_to');
+                          firestoreBatch.update(
+                              currentUserReference!,
+                              createUsersRecordData(
+                                displayName: _model.fNameTextController.text,
+                                bio: _model.lNameTextController.text,
+                                userName: _model.userNameTextController.text,
+                              ));
+                          logFirebaseEvent('finish_backend_call');
 
-                        context.pushNamed('ArtistPreferences');
+                          var playlistsRecordReference =
+                              PlaylistsRecord.collection.doc();
+                          firestoreBatch.set(
+                              playlistsRecordReference,
+                              createPlaylistsRecordData(
+                                user: currentUserReference,
+                              ));
+                          _model.playlistOutput =
+                              PlaylistsRecord.getDocumentFromData(
+                                  createPlaylistsRecordData(
+                                    user: currentUserReference,
+                                  ),
+                                  playlistsRecordReference);
+                          logFirebaseEvent('finish_backend_call');
+
+                          firestoreBatch.update(
+                              currentUserReference!,
+                              createUsersRecordData(
+                                playlistRef: _model.playlistOutput?.reference,
+                              ));
+                          logFirebaseEvent('finish_google_analytics_event');
+                          logFirebaseEvent(
+                            'finish_onboarding',
+                            parameters: {
+                              'Onboard_Btn': 'Onbrd',
+                            },
+                          );
+                          logFirebaseEvent('finish_navigate_to');
+
+                          context.pushNamed('ArtistPreferences');
+                        } finally {
+                          await firestoreBatch.commit();
+                        }
+
+                        safeSetState(() {});
                       },
                       text: 'Finish',
                       options: FFButtonOptions(

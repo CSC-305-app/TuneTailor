@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
+import '/components/track_search_results/track_search_results_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -333,9 +333,31 @@ class _PlaylistModifyWidgetState extends State<PlaylistModifyWidget> {
                                             logFirebaseEvent(
                                                 'PLAYLIST_MODIFY_Container_x68qxrdw_ON_TA');
                                             logFirebaseEvent(
-                                                'Container_navigate_to');
+                                                'Container_bottom_sheet');
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () =>
+                                                      FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        const TrackSearchResultsWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => safeSetState(() =>
+                                                _model.trackDetails = value));
 
-                                            context.pushNamed('profile');
+                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -367,37 +389,16 @@ class _PlaylistModifyWidgetState extends State<PlaylistModifyWidget> {
                                                         const EdgeInsetsDirectional
                                                             .fromSTEB(75.0, 0.0,
                                                                 0.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        logFirebaseEvent(
-                                                            'PLAYLIST_MODIFY_AddNewSongText_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'AddNewSongText_navigate_to');
-
-                                                        context.pushNamed(
-                                                            'Collection');
-                                                      },
-                                                      child: Text(
-                                                        'Add New Song',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
-                                                      ),
+                                                    child: Text(
+                                                      'Add New Song',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            fontSize: 18.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
                                                     ),
                                                   ),
                                                 ],
@@ -415,15 +416,6 @@ class _PlaylistModifyWidgetState extends State<PlaylistModifyWidget> {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                wrapWithModel(
-                  model: _model.bottomNavigationBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: BottomNavigationBarWidget(
-                    hidden: false,
-                    showCentralButton: false,
-                    onTapCentralButton: () async {},
                   ),
                 ),
               ],

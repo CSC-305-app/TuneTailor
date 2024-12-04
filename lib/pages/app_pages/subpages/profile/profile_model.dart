@@ -1,4 +1,3 @@
-import '/components/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
@@ -19,14 +18,9 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   FocusNode? profileLNameFocusNode;
   TextEditingController? profileLNameTextController;
   String? Function(BuildContext, String?)? profileLNameTextControllerValidator;
-  // Model for bottomNavigationBar component.
-  late BottomNavigationBarModel bottomNavigationBarModel;
 
   @override
-  void initState(BuildContext context) {
-    bottomNavigationBarModel =
-        createModel(context, () => BottomNavigationBarModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
@@ -35,7 +29,5 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
 
     profileLNameFocusNode?.dispose();
     profileLNameTextController?.dispose();
-
-    bottomNavigationBarModel.dispose();
   }
 }

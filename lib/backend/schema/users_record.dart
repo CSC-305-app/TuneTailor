@@ -70,6 +70,11 @@ class UsersRecord extends FirestoreRecord {
   bool get isGoogle => _isGoogle ?? false;
   bool hasIsGoogle() => _isGoogle != null;
 
+  // "playlistRef" field.
+  DocumentReference? _playlistRef;
+  DocumentReference? get playlistRef => _playlistRef;
+  bool hasPlaylistRef() => _playlistRef != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -82,6 +87,7 @@ class UsersRecord extends FirestoreRecord {
     _userName = snapshotData['user_name'] as String?;
     _signoutCount = castToType<int>(snapshotData['signoutCount']);
     _isGoogle = snapshotData['isGoogle'] as bool?;
+    _playlistRef = snapshotData['playlistRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -129,6 +135,7 @@ Map<String, dynamic> createUsersRecordData({
   String? userName,
   int? signoutCount,
   bool? isGoogle,
+  DocumentReference? playlistRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,6 +150,7 @@ Map<String, dynamic> createUsersRecordData({
       'user_name': userName,
       'signoutCount': signoutCount,
       'isGoogle': isGoogle,
+      'playlistRef': playlistRef,
     }.withoutNulls,
   );
 
@@ -164,7 +172,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.bio == e2?.bio &&
         e1?.userName == e2?.userName &&
         e1?.signoutCount == e2?.signoutCount &&
-        e1?.isGoogle == e2?.isGoogle;
+        e1?.isGoogle == e2?.isGoogle &&
+        e1?.playlistRef == e2?.playlistRef;
   }
 
   @override
@@ -179,7 +188,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.bio,
         e?.userName,
         e?.signoutCount,
-        e?.isGoogle
+        e?.isGoogle,
+        e?.playlistRef
       ]);
 
   @override
